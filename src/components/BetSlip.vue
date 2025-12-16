@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import {
   AnFilledPlaySquare,
+  CaArrowsHorizontal,
   FaHorseHead,
   FlFilledHome,
   HiSolidGiftTop,
   LuBlocks,
 } from "@kalimahapps/vue-icons";
 import type { Component } from "vue";
+import BetCard from "./BetCard.vue";
 import Button from "./ui/button/Button.vue";
+import Checkbox from "./ui/checkbox/Checkbox.vue";
 
 interface NavLink {
   title: string;
@@ -68,7 +71,7 @@ const sports: NavLink[] = [
       </div>
 
       <!-- Bets types buttons -->
-      <div class="bg-slate-50 gap-2 flex">
+      <div class="gap-2 flex py-1">
         <Button
           variant="secondary"
           class="bg-secondary-button hover:bg-zinc-600 hover:cursor-pointer text-white"
@@ -84,7 +87,7 @@ const sports: NavLink[] = [
       </div>
 
       <!-- Bets types buttons -->
-      <div class="bg-slate-50 gap-2 flex justify-between">
+      <div class="gap-2 flex justify-between py-1">
         <Button
           variant="secondary"
           class="bg-filter-button text-teal-400 hover:bg-teal-800 hover:cursor-pointer font-bold"
@@ -111,8 +114,52 @@ const sports: NavLink[] = [
         </Button>
       </div>
 
-      <!-- Odds details -->
-      <div>Odds details</div>
+      <!-- Bet details -->
+      <div class="w-full py-1">
+        <BetCard
+          :runner="'Jason Ginyu'"
+          :odd="'7/3'"
+          :bet="'Race winner'"
+          :race="'17:05 / Vincennes'"
+          :odd-type="'SP'"
+          :shirt-color="'text-yellow-400'"
+        />
+      </div>
+
+      <!-- Bet cart -->
+      <div class="w-full flex flex-col gap-2">
+        <div class="flex gap-1 font-bold text-white items-center">
+          <Checkbox id="ew" /> <CaArrowsHorizontal />
+          <label for="ew"> EW </label>
+        </div>
+        <!-- Ammount buttons -->
+        <div class="flex items-center gap-2 h-10 text-white justify-center">
+          <Button
+            variant="secondary"
+            class="bg-active-link hover:cursor-pointer"
+          >
+            E 10.00
+          </Button>
+          <Button
+            variant="secondary"
+            class="bg-secondary-button hover:cursor-pointer"
+          >
+            E 5
+          </Button>
+          <Button
+            variant="secondary"
+            class="bg-secondary-button hover:cursor-pointer"
+          >
+            E 25
+          </Button>
+          <Button
+            variant="secondary"
+            class="bg-secondary-button hover:cursor-pointer"
+          >
+            E 100
+          </Button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
