@@ -54,10 +54,8 @@ const sports: NavLink[] = [
 </script>
 
 <template>
-  <div
-    class="w-1/6 p-2 flex flex-col gap-1 justify-start items-center rounded-xl"
-  >
-    <div class="w-full h-full bg-content-bg rounded-xl p-2">
+  <div class="p-2 flex flex-col gap-1 justify-start items-center rounded-xl">
+    <div class="w-full h-full bg-content-bg rounded-xl p-2 flex flex-col gap-2">
       <!-- Title -->
       <div class="w-full flex flex-col px-1">
         <p class="flex gap-2 text-white font-bold text-lg">
@@ -70,10 +68,51 @@ const sports: NavLink[] = [
       </div>
 
       <!-- Bets types buttons -->
-      <div class="bg-slate-50">
-        <Button> Single </Button>
-        <Button> Multiple </Button>
+      <div class="bg-slate-50 gap-2 flex">
+        <Button
+          variant="secondary"
+          class="bg-secondary-button hover:bg-zinc-600 hover:cursor-pointer text-white"
+        >
+          Single
+        </Button>
+        <Button
+          variant="secondary"
+          class="bg-action-button hover:bg-sky-400 hover:cursor-pointer text-white"
+        >
+          Multiple
+        </Button>
       </div>
+
+      <!-- Bets types buttons -->
+      <div class="bg-slate-50 gap-2 flex justify-between">
+        <Button
+          variant="secondary"
+          class="bg-filter-button text-teal-400 hover:bg-teal-800 hover:cursor-pointer font-bold"
+        >
+          Multiples
+        </Button>
+        <Button
+          variant="secondary"
+          class="bg-secondary-button hover:bg-zinc-600 hover:cursor-pointer text-white"
+        >
+          Trixie
+        </Button>
+        <Button
+          variant="secondary"
+          class="bg-secondary-button hover:bg-zinc-600 hover:cursor-pointer text-white"
+        >
+          Patent
+        </Button>
+        <Button
+          variant="secondary"
+          class="bg-secondary-button hover:bg-zinc-600 hover:cursor-pointer text-white"
+        >
+          Double
+        </Button>
+      </div>
+
+      <!-- Odds details -->
+      <div>Odds details</div>
     </div>
   </div>
 </template>
