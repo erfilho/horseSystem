@@ -54,7 +54,7 @@ const sports: NavLink[] = [
 </script>
 
 <template>
-  <div class="w-64 p-2 h-full flex flex-col gap-1 justify-start items-center">
+  <div class="w-64 p-2 flex flex-col gap-1 justify-start items-center">
     <LinkButton
       v-for="link in linksPrimary"
       :title="link.title"

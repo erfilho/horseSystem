@@ -7,7 +7,7 @@ import {
   LuBlocks,
 } from "@kalimahapps/vue-icons";
 import type { Component } from "vue";
-import LinkButton from "./LinkButton.vue";
+import Button from "./ui/button/Button.vue";
 
 interface NavLink {
   title: string;
@@ -55,22 +55,25 @@ const sports: NavLink[] = [
 
 <template>
   <div
-    class="w-64 p-2 flex flex-col gap-1 justify-start items-center rounded-xl"
+    class="w-1/6 p-2 flex flex-col gap-1 justify-start items-center rounded-xl"
   >
-    <LinkButton
-      v-for="link in linksPrimary"
-      :title="link.title"
-      :icon="link.icon"
-      :url="link.url"
-      :isActive="link.isActive"
-    />
-    <span class="text-sm text-zinc-400 w-42 px-2 my-4 font-bold"> Sports </span>
-    <LinkButton
-      v-for="link in sports"
-      :title="link.title"
-      :icon="link.icon"
-      :url="link.url"
-      :isActive="link.isActive"
-    />
+    <div class="w-full h-full bg-content-bg rounded-xl p-2">
+      <!-- Title -->
+      <div class="w-full flex flex-col px-1">
+        <p class="flex gap-2 text-white font-bold text-lg">
+          <span
+            class="bg-primary-button rounded-full flex items-center justify-center w-6"
+          >
+            3 </span
+          >Bet Slip
+        </p>
+      </div>
+
+      <!-- Bets types buttons -->
+      <div class="bg-slate-50">
+        <Button> Single </Button>
+        <Button> Multiple </Button>
+      </div>
+    </div>
   </div>
 </template>

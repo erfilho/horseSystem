@@ -14,8 +14,12 @@ defineProps<{
 <template>
   <Button
     variant="secondary"
-    class="flex items-center justify-start gap-2 w-42 hover:bg-zinc-800 rounded-lg"
-    :class="isActive ? 'bg-zinc-800 text-white' : 'bg-zinc-900'"
+    class="flex items-center justify-start gap-2 w-42 hover:bg-active-link hover:cursor-pointer rounded-lg"
+    :class="
+      isActive
+        ? 'bg-active-link hover:bg-zinc-700 hover:cursor-pointer text-white'
+        : 'bg-df-bg'
+    "
   >
     <component
       :is="icon"

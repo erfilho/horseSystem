@@ -6,9 +6,9 @@ import Sidebar from "./components/Sidebar.vue";
 </script>
 
 <template>
-  <div class="flex h-[100vh] w-full flex-col justify-between gap-0.5">
+  <div class="flex h-screen w-full flex-col overflow-hidden bg-df-bg">
     <Header />
-    <div class="px-10 h-full py-2 flex flex-row items-center justify-center">
+    <div class="px-10 py-2 flex grow h-full overflow-hidden">
       <Sidebar />
       <MainContent />
       <BetSlip />

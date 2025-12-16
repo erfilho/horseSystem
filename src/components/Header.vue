@@ -39,7 +39,7 @@ const selectedLang = computed(() =>
 
 <template>
   <div
-    class="h-16 w-full mt-4 flex items-center justify-between px-10 border-b border-zinc-800"
+    class="h-16 shrink-0 w-full mt-4 flex items-center justify-between px-10 border-b border-zinc-800"
   >
     <!-- LOGO -->
     <div class="flex items-center justify-center">
@@ -50,7 +50,7 @@ const selectedLang = computed(() =>
     <div class="flex items-center gap-2">
       <Button
         variant="secondary"
-        class="h-9 px-4 text-sm bg-zinc-900 text-white hover:bg-zinc-800 gap-2"
+        class="h-9 px-4 text-sm bg-df-bg hover:cursor-pointer text-white hover:bg-active-link gap-2"
       >
         <AnFilledPlayCircle
           class="text-white"
@@ -60,20 +60,20 @@ const selectedLang = computed(() =>
       </Button>
       <Button
         variant="secondary"
-        class="h-9 px-4 text-sm font-bold bg-zinc-900 text-white hover:bg-zinc-800 gap-2 flex items-center justify-center"
+        class="h-9 px-4 text-sm font-bold bg-df-bg hover:cursor-pointer text-white hover:bg-active-link gap-2 flex items-center justify-center"
       >
         <BsClockHistory style="width: 20px; height: 20px" />
         Quick bets
       </Button>
       <Button
         variant="secondary"
-        class="h-9 px-4 text-sm font-bold bg-zinc-900 text-white hover:bg-zinc-800 gap-2 flex items-center justify-center"
+        class="h-9 px-4 text-sm font-bold bg-df-bg hover:cursor-pointer text-white hover:bg-active-link gap-2 flex items-center justify-center"
       >
         <LuDices style="width: 20px; height: 20px" /> Live cassion
       </Button>
       <Button
         variant="secondary"
-        class="h-9 px-4 text-sm font-bold bg-zinc-900 text-white hover:bg-zinc-800 gap-2 flex items-center justify-center"
+        class="h-9 px-4 text-sm font-bold bg-df-bg hover:cursor-pointer text-white hover:bg-active-link gap-2 flex items-center justify-center"
       >
         <BsCloudDrizzleFill style="width: 20px; height: 20px" /> Virtuals
       </Button>
@@ -84,7 +84,7 @@ const selectedLang = computed(() =>
       <!-- LANG SELECT -->
       <Select v-model="lang">
         <SelectTrigger
-          class="border-0 bg-zinc-800 text-white hover:bg-zinc-700"
+          class="border-0 bg-secondary-button text-white hover:bg-primary-button hover:cursor-pointer"
         >
           <template v-if="selectedLang">
             <div class="h-4 w-6 flex items-center justify-center">
@@ -98,12 +98,12 @@ const selectedLang = computed(() =>
           </template>
         </SelectTrigger>
 
-        <SelectContent class="border-0 bg-zinc-800">
+        <SelectContent class="border-0 bg-secondary-button">
           <SelectItem
             v-for="item in languages"
             :key="item.value"
             :value="item.value"
-            class="w-full text-white bg-zinc-800 focus:bg-zinc-700 hover:bg-zinc-700 data-[state=checked]:bg-zinc-700 data-[state=checked]:text-white data-highlighted:bg-zinc-700 data-highlighted:text-white my-0.5"
+            class="w-full text-white bg-secondary-button focus:bg-primary-button hover:bg-primary-button data-[state=checked]:bg-primary-button data-[state=checked]:text-white data-highlighted:bg-primary-button data-highlighted:text-white my-0.5 hover:cursor-pointer"
           >
             <div
               class="w-full flex items-center justify-center gap-2 leading-none"
@@ -124,19 +124,19 @@ const selectedLang = computed(() =>
       </Select>
       <Button
         variant="secondary"
-        class="h-9 text-sm font-bold bg-zinc-700 text-white hover:bg-zinc-600 flex items-center justify-center"
+        class="h-9 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"
       >
         Log In
       </Button>
       <Button
         variant="secondary"
-        class="h-9 px-4 text-sm font-bold bg-sky-500 text-white hover:bg-sky-400 flex items-center justify-center"
+        class="h-9 px-4 text-sm font-bold bg-action-button hover:cursor-pointer text-white hover:bg-sky-400 flex items-center justify-center"
       >
         Join now
       </Button>
       <Button
         variant="secondary"
-        class="h-9 px-4 text-sm font-bold bg-zinc-700 text-white hover:bg-zinc-600 flex items-center justify-center"
+        class="h-9 px-4 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"
       >
         <AnOutlinedSearch />
       </Button>

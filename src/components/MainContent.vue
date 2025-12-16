@@ -53,9 +53,9 @@ const races = [
 
 <template>
   <div
-    class="w-4/6 p-2 h-full flex flex-col gap-2 justify-start items-center rounded-xl"
+    class="w-4/6 p-2 flex flex-1 flex-col gap-2 justify-start items-center rounded-xl"
   >
-    <div class="min-h-screen bg-zinc-900 text-white w-full p-0 space-y-6">
+    <div class="bg-zinc-900 text-white w-full p-0 space-y-6">
       <!-- HEADER -->
       <div
         class="relative rounded-xl overflow-hidden bg-linear-to-r from-zinc-800 to-zinc-900 p-6"
