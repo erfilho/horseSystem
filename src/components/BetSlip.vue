@@ -1,59 +1,13 @@
 <script setup lang="ts">
 import {
-  AnFilledPlaySquare,
+  AnFilledInfoCircle,
+  BsCurrencyEuro,
   CaArrowsHorizontal,
-  FaHorseHead,
-  FlFilledHome,
-  HiSolidGiftTop,
-  LuBlocks,
+  FaTrash,
 } from "@kalimahapps/vue-icons";
-import type { Component } from "vue";
 import BetCard from "./BetCard.vue";
 import Button from "./ui/button/Button.vue";
 import Checkbox from "./ui/checkbox/Checkbox.vue";
-
-interface NavLink {
-  title: string;
-  icon: Component;
-  url: string;
-  isActive: boolean;
-}
-
-const linksPrimary: NavLink[] = [
-  {
-    title: "Home",
-    icon: FlFilledHome,
-    url: "/home",
-    isActive: true,
-  },
-  {
-    title: "Rewards",
-    icon: HiSolidGiftTop,
-    url: "/rewards",
-    isActive: false,
-  },
-  {
-    title: "In-Play",
-    icon: AnFilledPlaySquare,
-    url: "/in-play",
-    isActive: false,
-  },
-  {
-    title: "Acca Builder",
-    icon: LuBlocks,
-    url: "/acca-builder",
-    isActive: false,
-  },
-];
-
-const sports: NavLink[] = [
-  {
-    title: "Horse Racing",
-    icon: FaHorseHead,
-    url: "/horses",
-    isActive: false,
-  },
-];
 </script>
 
 <template>
@@ -115,7 +69,7 @@ const sports: NavLink[] = [
       </div>
 
       <!-- Bet details -->
-      <div class="w-full py-1">
+      <div class="w-full py-1 h-7/12">
         <BetCard
           :runner="'Jason Ginyu'"
           :odd="'7/3'"
@@ -128,36 +82,84 @@ const sports: NavLink[] = [
 
       <!-- Bet cart -->
       <div class="w-full flex flex-col gap-2">
-        <div class="flex gap-1 font-bold text-white items-center">
+        <div class="flex gap-1 font-bold text-white items-center px-2">
           <Checkbox id="ew" /> <CaArrowsHorizontal />
           <label for="ew"> EW </label>
         </div>
+
         <!-- Ammount buttons -->
-        <div class="flex items-center gap-2 h-10 text-white justify-center">
+        <div
+          class="flex items-center gap-2 h-10 text-white justify-between px-2"
+        >
           <Button
             variant="secondary"
-            class="bg-active-link hover:cursor-pointer"
+            class="bg-active-link hover:cursor-pointer active:bg-primary-button"
           >
-            E 10.00
+            <BsCurrencyEuro /> 10.00
           </Button>
           <Button
             variant="secondary"
-            class="bg-secondary-button hover:cursor-pointer"
+            class="bg-secondary-button hover:cursor-pointer active:bg-primary-button"
           >
-            E 5
+            <BsCurrencyEuro /> 5
           </Button>
           <Button
             variant="secondary"
-            class="bg-secondary-button hover:cursor-pointer"
+            class="bg-secondary-button hover:cursor-pointer active:bg-primary-button"
           >
-            E 25
+            <BsCurrencyEuro /> 25
           </Button>
           <Button
             variant="secondary"
-            class="bg-secondary-button hover:cursor-pointer"
+            class="bg-secondary-button hover:cursor-pointer active:bg-primary-button"
           >
-            E 100
+            <BsCurrencyEuro /> 100
           </Button>
+        </div>
+
+        <!-- Values details -->
+        <div class="flex text-white flex-col items-center px-2 gap-1">
+          <span class="flex justify-between items-center w-full">
+            <p>Total odds</p>
+            <p class="font-bold">N/A</p>
+          </span>
+          <span class="flex justify-between items-center w-full">
+            <p>Total Stake</p>
+            <p class="font-bold">0.00</p>
+          </span>
+          <span class="flex justify-between items-center w-full">
+            <p>To return</p>
+            <p class="font-bold">N/A</p>
+          </span>
+        </div>
+
+        <!-- Bets completion -->
+        <div
+          class="flex text-white flex-col items-center p-2 justify-center h-full gap-2"
+        >
+          <!-- Info span -->
+          <span
+            class="rounded-xl bg-secondary-button h-8 flex items-center gap-2 px-2"
+          >
+            <AnFilledInfoCircle />
+            <p class="text-sm">Some of your selection are not combinable</p>
+          </span>
+
+          <!-- Login and trash buttons -->
+          <span class="gap-2 flex h-12 items-center w-full justify-center">
+            <Button
+              variant="secondary"
+              class="bg-secondary-button text-white w-10"
+            >
+              <FaTrash />
+            </Button>
+            <Button
+              variant="secondary"
+              class="bg-zinc-700 w-10/12 font-bold text-medium"
+            >
+              Log in to place bet
+            </Button></span
+          >
         </div>
       </div>
     </div>

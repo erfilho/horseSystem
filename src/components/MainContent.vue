@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import RaceCard from "./RaceCard.vue";
+
+interface RaceCards {
+  time: string;
+  local: string;
+  isLiveNow: boolean;
+}
+
 const tabs = [
   { title: "Next Races", active: true },
   { title: "Meetings", active: false },
@@ -49,83 +57,99 @@ const races = [
     active: false,
   },
 ];
+
+const racesTimeLine: RaceCards[] = [
+  {
+    time: "17:05",
+    local: "Vincennes",
+    isLiveNow: true,
+  },
+  {
+    time: "17:20",
+    local: "Toulouse",
+    isLiveNow: false,
+  },
+  {
+    time: "17:35",
+    local: "Vincennes",
+    isLiveNow: false,
+  },
+];
 </script>
 
 <template>
   <div
     class="w-4/6 p-2 flex flex-1 flex-col gap-2 justify-start items-center rounded-xl"
   >
-    <div class="bg-zinc-900 text-white w-full p-0 space-y-6">
+    <div class="text-white w-full p-0 space-y-6">
       <!-- HEADER -->
       <div
-        class="relative rounded-xl overflow-hidden bg-linear-to-r from-zinc-800 to-zinc-900 p-6"
+        class="relative rounded-xl overflow-hidden p-6"
         style="
           background-image: url('/horse.png');
           background-size: cover;
-          background-position: 25%;
+          background-position: 10%;
         "
       >
-        <div class="flex items-center justify-between">
-          <div class="flex flex-col gap-2">
-            <h1 class="text-2xl font-semibold">Horse Racing</h1>
+        <div
+          class="absolute inset-0 bg-linear-to-tr from-black/90 via-black/70 to-transparent"
+        ></div>
 
-            <div class="flex gap-2 mt-2">
-              <button
-                v-for="tab in tabs"
-                :key="tab.title"
-                class="text-md p-2 rounded-lg font-bold"
-                :class="
-                  tab.active
-                    ? 'bg-sky-500 hover:bg-sky-400'
-                    : 'hover:bg-zinc-800'
-                "
-              >
-                {{ tab.title }}
-              </button>
+        <div class="relative z-10">
+          <div class="flex items-center justify-between">
+            <div class="flex flex-col gap-2">
+              <h1 class="text-2xl font-semibold">Horse Racing</h1>
+
+              <!-- Main races tabs -->
+              <div class="flex gap-2 mt-2">
+                <button
+                  v-for="tab in tabs"
+                  :key="tab.title"
+                  class="text-md p-2 rounded-lg font-bold hover:cursor-pointer"
+                  :class="
+                    tab.active
+                      ? 'bg-action-button hover:bg-sky-400'
+                      : 'hover:bg-action-button'
+                  "
+                >
+                  {{ tab.title }}
+                </button>
+              </div>
+              <div class="w-full border-b border-zinc-800"></div>
             </div>
-            <div class="w-full border-b border-zinc-800"></div>
           </div>
-        </div>
 
-        <!-- Sub Tabs -->
-        <div class="flex flex-row gap-2 py-2">
-          <button
-            v-for="sub in subTabs"
-            :key="sub.title"
-            class="text-sm p-2 rounded-lg font-bold"
-            :class="
-              sub.active
-                ? 'bg-teal-800 text-teal-300 hover:bg-teal-700'
-                : 'bg-zinc-800 hover:bg-zinc-600'
-            "
-          >
-            {{ sub.title }}
-          </button>
-        </div>
+          <!-- Sub Tabs -->
+          <div class="flex flex-row gap-2 py-2">
+            <button
+              v-for="sub in subTabs"
+              :key="sub.title"
+              class="text-sm p-2 rounded-lg font-bold hover:cursor-pointer"
+              :class="
+                sub.active
+                  ? 'bg-filter-button text-teal-400 hover:bg-teal-800'
+                  : 'bg-secondary-button hover:bg-primary-button'
+              "
+            >
+              {{ sub.title }}
+            </button>
+          </div>
 
-        <!-- TIME FILTER -->
-        <div class="flex gap-3 overflow-x-auto py-2">
-          <button
-            v-for="time in [
-              '17:05',
-              '17:20',
-              '17:35',
-              '17:40',
-              '17:50',
-              '18:00',
-              '18:05',
-            ]"
-            :key="time"
-            class="min-w-20 px-4 py-3 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-center"
-          >
-            <div class="text-sm font-medium">{{ time }}</div>
-            <div class="text-xs text-zinc-400">Vincennes</div>
-          </button>
+          <!-- Races Timeline -->
+          <div class="flex gap-3 overflow-x-auto py-2">
+            <RaceCard
+              v-for="race in racesTimeLine"
+              :key="race.time"
+              :time="race.time"
+              :local="race.local"
+              :isLiveNow="race.isLiveNow"
+            />
+          </div>
         </div>
       </div>
 
-      <!-- RACE LIST -->
-      <div class="bg-zinc-800 rounded-xl p-6 space-y-4">
+      <!-- Race Details -->
+      <div class="bg-content-bg rounded-xl p-6 space-y-4">
         <div class="flex justify-between items-center">
           <div>
             <h2 class="text-lg font-semibold">17:05 Vincennes</h2>
@@ -141,7 +165,7 @@ const races = [
           </button>
         </div>
 
-        <!-- RUNNERS -->
+        <!-- Race Runners -->
         <div class="divide-y divide-zinc-700">
           <div
             v-for="race in races"
