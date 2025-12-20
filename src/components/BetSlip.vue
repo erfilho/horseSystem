@@ -149,13 +149,13 @@ import Checkbox from "./ui/checkbox/Checkbox.vue";
           <span class="gap-2 flex h-12 items-center w-full justify-center">
             <Button
               variant="secondary"
-              class="bg-secondary-button text-white w-10"
+              class="bg-secondary-button text-white w-10 hover:cursor-pointer hover:bg-primary-button"
             >
               <FaTrash />
             </Button>
             <Button
               variant="secondary"
-              class="bg-zinc-700 w-10/12 font-bold text-medium"
+              class="bg-zinc-700 w-10/12 font-bold text-medium hover:cursor-pointer hover:bg-zinc-600"
             >
               Log in to place bet
             </Button></span

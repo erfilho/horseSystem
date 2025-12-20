@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { AnFilledPlayCircle } from "@kalimahapps/vue-icons";
 import RaceCard from "./RaceCard.vue";
+import RacerCard from "./RacerCard.vue";
 
 interface RaceCards {
   time: string;
@@ -21,40 +23,52 @@ const subTabs = [
 
 const races = [
   {
-    position: 1,
-    name: "Jason Ginyu",
+    shirtNumber: 1,
+    horse: "Jason Ginyu",
     jockey: "Arnaud Desmottes",
     trainer: "A. Desmottes",
     odds: "7/4",
-    color: "bg-red-600",
+    color: "text-red-600",
     active: true,
+    horseAge: 6,
+    formCode: "nyajw333C098",
+    lastOdds: "15/8 > 7/4 > 15/8",
   },
   {
-    position: 2,
-    name: "Nainpoints Lasse",
+    shirtNumber: 2,
+    horse: "Nainpoints Lasse",
     jockey: "A. Abrivard",
     trainer: "J. Westholms",
     odds: "3/1",
-    color: "bg-blue-600",
+    color: "text-blue-600",
     active: false,
+    horseAge: 6,
+    formCode: "nyajw333C098",
+    lastOdds: "15/8 > 7/4 > 15/8",
   },
   {
-    position: 3,
-    name: "Jilord Viva",
+    shirtNumber: 3,
+    horse: "Jilord Viva",
     jockey: "R. Raffin",
     trainer: "T. Julien Raffestin",
     odds: "7/3",
-    color: "bg-yellow-500",
+    color: "text-yellow-500",
     active: false,
+    horseAge: 6,
+    formCode: "nyajw333C098",
+    lastOdds: "15/8 > 7/4 > 15/8",
   },
   {
-    position: 4,
-    name: "Darlene Robertson",
+    shirtNumber: 4,
+    horse: "Darlene Robertson",
     jockey: "Theresa Webb",
     trainer: "Robert Fox",
     odds: "10/4",
-    color: "bg-zinc-700",
+    color: "text-zinc-700",
     active: false,
+    horseAge: 6,
+    formCode: "nyajw333C098",
+    lastOdds: "15/8 > 7/4 > 15/8",
   },
 ];
 
@@ -159,41 +173,27 @@ const racesTimeLine: RaceCards[] = [
           </div>
 
           <button
-            class="px-4 py-2 text-sm bg-zinc-700 rounded-lg hover:bg-zinc-600"
+            class="px-4 py-2 text-sm bg-zinc-700 rounded-lg hover:bg-zinc-600 flex items-center gap-2 h-12"
           >
-            Watch
+            <AnFilledPlayCircle class="text-lg" /> Watch
           </button>
         </div>
 
         <!-- Race Runners -->
         <div class="divide-y divide-zinc-700">
-          <div
+          <RacerCard
             v-for="race in races"
-            :key="race.position"
-            class="flex items-center justify-between py-4"
-          >
-            <div class="flex items-center gap-4">
-              <div
-                class="w-8 h-8 rounded flex items-center justify-center text-sm font-bold"
-                :class="race.color"
-              >
-                {{ race.position }}
-              </div>
-
-              <div>
-                <p class="font-medium">{{ race.name }}</p>
-                <p class="text-xs text-zinc-400">
-                  J: {{ race.jockey }} · T: {{ race.trainer }}
-                </p>
-              </div>
-            </div>
-
-            <button
-              class="px-4 py-2 rounded-lg bg-zinc-700 hover:bg-green-600 transition text-sm font-semibold"
-            >
-              {{ race.odds }}
-            </button>
-          </div>
+            :key="race.horse"
+            :shirtNumber="race.shirtNumber"
+            :horse="race.horse"
+            :jockey="race.jockey"
+            :trainer="race.trainer"
+            :shirtColor="race.color"
+            :odds="race.odds"
+            :formCode="race.formCode"
+            :horseAge="race.horseAge"
+            :lastOdds="race.lastOdds"
+          />
         </div>
       </div>
     </div>
