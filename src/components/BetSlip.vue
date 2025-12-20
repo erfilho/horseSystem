@@ -8,6 +8,23 @@ import {
 import BetCard from "./BetCard.vue";
 import Button from "./ui/button/Button.vue";
 import Checkbox from "./ui/checkbox/Checkbox.vue";
+
+import { useValueStore } from "@/stores/useValueStore";
+import { computed } from "vue";
+
+const store = useValueStore();
+
+const formattedAmount = computed(() =>
+  new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "EUR",
+  }).format(store.ammountBase)
+);
+
+function addValue(value: number) {
+  store.addAmmount(value);
+  console.log(store.ammountBase);
+}
 </script>
 
 <template>
@@ -94,24 +111,28 @@ import Checkbox from "./ui/checkbox/Checkbox.vue";
           <Button
             variant="secondary"
             class="bg-active-link hover:cursor-pointer active:bg-primary-button"
+            @click="addValue(10)"
           >
             <BsCurrencyEuro /> 10.00
           </Button>
           <Button
             variant="secondary"
             class="bg-secondary-button hover:cursor-pointer active:bg-primary-button"
+            @click="addValue(5)"
           >
             <BsCurrencyEuro /> 5
           </Button>
           <Button
             variant="secondary"
             class="bg-secondary-button hover:cursor-pointer active:bg-primary-button"
+            @click="addValue(25)"
           >
             <BsCurrencyEuro /> 25
           </Button>
           <Button
             variant="secondary"
             class="bg-secondary-button hover:cursor-pointer active:bg-primary-button"
+            @click="addValue(100)"
           >
             <BsCurrencyEuro /> 100
           </Button>
@@ -125,7 +146,7 @@ import Checkbox from "./ui/checkbox/Checkbox.vue";
           </span>
           <span class="flex justify-between items-center w-full">
             <p>Total Stake</p>
-            <p class="font-bold">0.00</p>
+            <p class="font-bold">{{ formattedAmount }}</p>
           </span>
           <span class="flex justify-between items-center w-full">
             <p>To return</p>
