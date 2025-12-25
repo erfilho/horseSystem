@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { AnFilledPlayCircle } from "@kalimahapps/vue-icons";
+
 import RaceCard from "./RaceCard.vue";
 import RacerCard from "./RacerCard.vue";
+
+import { useBetSlipStore } from "@/stores/betSlip.store";
+
+const betSlip = useBetSlipStore();
 
 interface RaceCards {
   time: string;
@@ -89,6 +94,18 @@ const racesTimeLine: RaceCards[] = [
     isLiveNow: false,
   },
 ];
+
+function addToBetSlip(race: any) {
+  betSlip.addSelection({
+    raceId: "17:05 Vincennes",
+    raceName: "17:05 Vincennes",
+    horseId: race.horse,
+    horseName: race.horse,
+    odds: 5.7,
+    type: "win",
+    shirtColor: race.color,
+  });
+}
 </script>
 
 <template>
@@ -184,15 +201,9 @@ const racesTimeLine: RaceCards[] = [
           <RacerCard
             v-for="race in races"
             :key="race.horse"
-            :shirtNumber="race.shirtNumber"
-            :horse="race.horse"
-            :jockey="race.jockey"
-            :trainer="race.trainer"
             :shirtColor="race.color"
-            :odds="race.odds"
-            :formCode="race.formCode"
-            :horseAge="race.horseAge"
-            :lastOdds="race.lastOdds"
+            @select="addToBetSlip"
+            v-bind="race"
           />
         </div>
       </div>

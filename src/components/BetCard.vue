@@ -3,11 +3,16 @@ import { BxSolidTShirt, HuTimesCircle } from "@kalimahapps/vue-icons";
 
 defineProps<{
   runner: string;
-  odd: string;
+  odd: number;
   bet: string;
   race: string;
   oddType: string;
   shirtColor: string;
+  horseId: string;
+}>();
+
+const emit = defineEmits<{
+  (e: "remove", horseId: string): void;
 }>();
 </script>
 
@@ -16,7 +21,10 @@ defineProps<{
     class="flex flex-row bg-content-bg border-t border-zinc-700 h-16 w-full px-1 py-2 text-white"
   >
     <span class="flex justify-start h-full p-1 text-xl">
-      <HuTimesCircle class="hover:cursor-pointer" />
+      <HuTimesCircle
+        class="hover:cursor-pointer"
+        @click="emit('remove', horseId)"
+      />
     </span>
 
     <div class="flex flex-col gap-2 font-bold">

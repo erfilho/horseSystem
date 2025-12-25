@@ -12,6 +12,10 @@ defineProps<{
   formCode: string;
   lastOdds: string;
 }>();
+
+const emit = defineEmits<{
+  (e: "select", payload: any): void;
+}>();
 </script>
 
 <template>
@@ -34,6 +38,7 @@ defineProps<{
 
       <button
         class="px-4 py-2 rounded-lg bg-zinc-700 hover:bg-green-600 transition text-sm font-semibold"
+        @click="emit('select', horse)"
       >
         {{ odds }}
       </button>

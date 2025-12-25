@@ -5,25 +5,38 @@ import {
   CaArrowsHorizontal,
   FaTrash,
 } from "@kalimahapps/vue-icons";
+
 import BetCard from "./BetCard.vue";
 import Button from "./ui/button/Button.vue";
 import Checkbox from "./ui/checkbox/Checkbox.vue";
 
-import { useValueStore } from "@/stores/useValueStore";
+import { useBetSlipStore } from "@/stores/betSlip.store";
+import { useWalletStore } from "@/stores/wallet.store";
 import { computed } from "vue";
 
-const store = useValueStore();
+const betSlip = useBetSlipStore();
+const wallet = useWalletStore();
 
-const formattedAmount = computed(() =>
+const formattedStake = computed(() =>
   new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "EUR",
-  }).format(store.ammountBase)
+  }).format(betSlip.stake)
+);
+
+const formattedReturn = computed(() =>
+  new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "EUR",
+  }).format(betSlip.potentialReturn || 0)
 );
 
 function addValue(value: number) {
-  store.addAmmount(value);
-  console.log(store.ammountBase);
+  betSlip.stake += value;
+}
+
+function clearSlip() {
+  betSlip.clear();
 }
 </script>
 
@@ -88,12 +101,15 @@ function addValue(value: number) {
       <!-- Bet details -->
       <div class="w-full py-1 h-7/12">
         <BetCard
-          :runner="'Jason Ginyu'"
-          :odd="'7/3'"
-          :bet="'Race winner'"
-          :race="'17:05 / Vincennes'"
+          v-for="selection in betSlip.selections"
+          :key="selection.horseId"
+          :runner="selection.horseName"
+          :odd="selection.odds"
+          :bet="selection.type"
+          :horse-id="selection.horseId"
+          :race="selection.raceName"
           :odd-type="'SP'"
-          :shirt-color="'text-yellow-400'"
+          :shirt-color="selection.shirtColor"
         />
       </div>
 
@@ -142,15 +158,17 @@ function addValue(value: number) {
         <div class="flex text-white flex-col items-center px-2 gap-1">
           <span class="flex justify-between items-center w-full">
             <p>Total odds</p>
-            <p class="font-bold">N/A</p>
+            <p class="font-bold">
+              {{ betSlip.totalOdds ? betSlip.totalOdds.toFixed(2) : "N/A" }}
+            </p>
           </span>
           <span class="flex justify-between items-center w-full">
             <p>Total Stake</p>
-            <p class="font-bold">{{ formattedAmount }}</p>
+            <p class="font-bold">{{ formattedStake }}</p>
           </span>
           <span class="flex justify-between items-center w-full">
             <p>To return</p>
-            <p class="font-bold">N/A</p>
+            <p class="font-bold">{{ formattedReturn }}</p>
           </span>
         </div>
 
@@ -171,14 +189,20 @@ function addValue(value: number) {
             <Button
               variant="secondary"
               class="bg-secondary-button text-white w-10 hover:cursor-pointer hover:bg-primary-button"
+              @click="clearSlip"
             >
               <FaTrash />
             </Button>
             <Button
               variant="secondary"
               class="bg-zinc-700 w-10/12 font-bold text-medium hover:cursor-pointer hover:bg-zinc-600"
+              :disabled="
+                !betSlip.selections.length ||
+                betSlip.stake <= 0 ||
+                wallet.balance < betSlip.stake
+              "
             >
-              Log in to place bet
+              Place bet
             </Button></span
           >
         </div>
