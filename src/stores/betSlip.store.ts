@@ -17,25 +17,40 @@ export const useBetSlipStore = defineStore("betSlip", {
     },
 
     potentialReturn(): number {
-      return this.stake * this.totalOdds
+      return this.stake * this.totalOdds;
     },
   },
 
   actions: {
-    addSelection(selection: BetSelection){
+    addSelection(selection: BetSelection) {
       const exists = this.selections.find(
-        s => s.horseId === selection.horseId && s.raceId === selection.raceId 
+        (s) => s.horseId === selection.horseId && s.raceId === selection.raceId
+      );
+      if (!exists) this.selections.push(selection);
+    },
+
+    removeSelection(horseId: string) {
+      this.selections = this.selections.filter((s) => s.horseId !== horseId);
+    },
+
+    setBetType(type: "single" | "multiple") {
+      this.betType = type;
+      this.stake = 0;
+    },
+
+    canPlaceBet(): boolean {
+      if (
+        this.stake == 0 ||
+        this.selections.length == 0 ||
+        (this.betType === "multiple" && this.selections.length < 2)
       )
-      if(!exists) this.selections.push(selection)
+        return false;
+      return true;
     },
 
-    removeSelection(horseId: string){
-      this.selections = this.selections.filter(s => s.horseId !== horseId)
+    clear() {
+      this.selections = [];
+      this.stake = 0;
     },
-
-    clear(){
-      this.selections = []
-      this.stake = 0
-    }
-  }
+  },
 });

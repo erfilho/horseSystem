@@ -32,7 +32,7 @@ const races = [
     horse: "Jason Ginyu",
     jockey: "Arnaud Desmottes",
     trainer: "A. Desmottes",
-    odds: "7/4",
+    odds: 7.4,
     color: "text-red-600",
     active: true,
     horseAge: 6,
@@ -44,7 +44,7 @@ const races = [
     horse: "Nainpoints Lasse",
     jockey: "A. Abrivard",
     trainer: "J. Westholms",
-    odds: "3/1",
+    odds: 3.1,
     color: "text-blue-600",
     active: false,
     horseAge: 6,
@@ -56,7 +56,7 @@ const races = [
     horse: "Jilord Viva",
     jockey: "R. Raffin",
     trainer: "T. Julien Raffestin",
-    odds: "7/3",
+    odds: 7.3,
     color: "text-yellow-500",
     active: false,
     horseAge: 6,
@@ -68,7 +68,7 @@ const races = [
     horse: "Darlene Robertson",
     jockey: "Theresa Webb",
     trainer: "Robert Fox",
-    odds: "10/4",
+    odds: 10.4,
     color: "text-zinc-700",
     active: false,
     horseAge: 6,
@@ -96,14 +96,16 @@ const racesTimeLine: RaceCards[] = [
 ];
 
 function addToBetSlip(race: any) {
+  console.log(race);
   betSlip.addSelection({
-    raceId: "17:05 Vincennes",
-    raceName: "17:05 Vincennes",
+    raceId: "test",
     horseId: race.horse,
     horseName: race.horse,
-    odds: 5.7,
-    type: "win",
+    raceName: "test",
     shirtColor: race.color,
+    bet: "win",
+    oddType: "SP",
+    odds: race.odds,
   });
 }
 </script>
@@ -200,10 +202,17 @@ function addToBetSlip(race: any) {
         <div class="divide-y divide-zinc-700">
           <RacerCard
             v-for="race in races"
+            @select="addToBetSlip(race)"
             :key="race.horse"
             :shirtColor="race.color"
-            @select="addToBetSlip"
-            v-bind="race"
+            :shirtNumber="race.shirtNumber"
+            :horse="race.horse"
+            :horseAge="race.horseAge"
+            :jockey="race.jockey"
+            :trainer="race.trainer"
+            :formCode="race.formCode"
+            :lastOdds="race.lastOdds"
+            :odds="race.odds"
           />
         </div>
       </div>

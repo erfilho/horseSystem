@@ -38,6 +38,14 @@ function addValue(value: number) {
 function clearSlip() {
   betSlip.clear();
 }
+
+function removeBet(horse: string) {
+  betSlip.removeSelection(horse);
+}
+
+function setBetType(type: "single" | "multiple") {
+  betSlip.setBetType(type);
+}
 </script>
 
 <template>
@@ -58,13 +66,25 @@ function clearSlip() {
       <div class="gap-2 flex py-1">
         <Button
           variant="secondary"
-          class="bg-secondary-button hover:bg-zinc-600 hover:cursor-pointer text-white"
+          class="hover:cursor-pointer text-white"
+          :class="
+            betSlip.betType === 'single'
+              ? 'bg-action-button hover:bg-sky-400'
+              : 'bg-secondary-button hover:bg-zinc-600'
+          "
+          @click="setBetType('single')"
         >
           Single
         </Button>
         <Button
           variant="secondary"
-          class="bg-action-button hover:bg-sky-400 hover:cursor-pointer text-white"
+          class="hover:cursor-pointer text-white"
+          :class="
+            betSlip.betType === 'multiple'
+              ? 'bg-action-button hover:bg-sky-400'
+              : 'bg-secondary-button hover:bg-zinc-600'
+          "
+          @click="setBetType('multiple')"
         >
           Multiple
         </Button>
@@ -103,13 +123,15 @@ function clearSlip() {
         <BetCard
           v-for="selection in betSlip.selections"
           :key="selection.horseId"
-          :runner="selection.horseName"
-          :odd="selection.odds"
-          :bet="selection.type"
+          @remove="removeBet(selection.horseId)"
+          :race-id="selection.raceId"
+          :race-name="selection.raceName"
           :horse-id="selection.horseId"
-          :race="selection.raceName"
-          :odd-type="'SP'"
+          :horse-name="selection.horseName"
           :shirt-color="selection.shirtColor"
+          :bet="selection.bet"
+          :odd-type="selection.oddType"
+          :odds="selection.odds"
         />
       </div>
 
@@ -159,7 +181,7 @@ function clearSlip() {
           <span class="flex justify-between items-center w-full">
             <p>Total odds</p>
             <p class="font-bold">
-              {{ betSlip.totalOdds ? betSlip.totalOdds.toFixed(2) : "N/A" }}
+              {{ betSlip.totalOdds.toFixed(2) }}
             </p>
           </span>
           <span class="flex justify-between items-center w-full">
@@ -196,11 +218,7 @@ function clearSlip() {
             <Button
               variant="secondary"
               class="bg-zinc-700 w-10/12 font-bold text-medium hover:cursor-pointer hover:bg-zinc-600"
-              :disabled="
-                !betSlip.selections.length ||
-                betSlip.stake <= 0 ||
-                wallet.balance < betSlip.stake
-              "
+              :disabled="!betSlip.canPlaceBet"
             >
               Place bet
             </Button></span

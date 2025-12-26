@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { BxSolidTShirt } from "@kalimahapps/vue-icons";
+import formatOdds from "@/utils/formatOdds";
 
 defineProps<{
   shirtNumber: number;
@@ -7,7 +8,7 @@ defineProps<{
   jockey: string;
   trainer: string;
   shirtColor: string;
-  odds: string;
+  odds: number;
   horseAge: number;
   formCode: string;
   lastOdds: string;
@@ -40,7 +41,7 @@ const emit = defineEmits<{
         class="px-4 py-2 rounded-lg bg-zinc-700 hover:bg-green-600 transition text-sm font-semibold"
         @click="emit('select', horse)"
       >
-        {{ odds }}
+        {{ formatOdds(odds) }}
       </button>
     </div>
 

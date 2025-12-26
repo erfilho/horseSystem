@@ -1,14 +1,16 @@
 <script setup lang="ts">
+import formatOdds from "@/utils/formatOdds";
 import { BxSolidTShirt, HuTimesCircle } from "@kalimahapps/vue-icons";
 
 defineProps<{
-  runner: string;
-  odd: number;
-  bet: string;
-  race: string;
-  oddType: string;
-  shirtColor: string;
+  raceId: string;
   horseId: string;
+  horseName: string;
+  raceName: string;
+  shirtColor: string;
+  bet: string;
+  oddType: string;
+  odds: number;
 }>();
 
 const emit = defineEmits<{
@@ -27,16 +29,16 @@ const emit = defineEmits<{
       />
     </span>
 
-    <div class="flex flex-col gap-2 font-bold">
+    <div class="flex flex-col gap-2 font-bold w-full">
       <div class="flex gap-2 items-center">
         <p :class="[`text-2xl`, shirtColor]"><BxSolidTShirt /></p>
-        <p>{{ runner }}</p>
+        <p>{{ horseName }}</p>
       </div>
-      <span class="font-medium"> {{ bet }} / {{ race }}</span>
+      <span class="font-medium"> {{ bet }} / {{ raceName }}</span>
     </div>
 
     <div class="font-bold flex gap-2">
-      <p>{{ odd }}</p>
+      <p>{{ formatOdds(odds) }}</p>
       <span class="bg-yellow-800 text-yellow-200 h-fit rounded-lg px-1">
         {{ oddType }}</span
       >

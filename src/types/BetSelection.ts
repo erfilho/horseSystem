@@ -1,9 +1,10 @@
 export interface BetSelection {
   raceId: string;
+  raceName: string;
   horseId: string;
   horseName: string;
-  raceName: string;
   shirtColor: string;
-  type: "win" | "place" | "each-way";
+  bet: "win" | "place" | "each-way";
+  oddType: "SP"
   odds: number;
 }
