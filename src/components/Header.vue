@@ -17,12 +17,22 @@ import {
 } from "@kalimahapps/vue-icons";
 
 import { Button } from "@/components/ui/button";
+import router from "@/routes/router";
 import { useAuthStore } from "@/stores/auth.store";
 
 const auth = useAuthStore();
 
 const isLogged = () => {
   return auth.isAuthenticated;
+};
+
+const isAdmin = () => {
+  return auth.isAdmin;
+};
+
+const handleLogout = () => {
+  auth.logout();
+  router.push("/");
 };
 
 const lang = ref("ENG");
@@ -132,10 +142,13 @@ const selectedLang = computed(() =>
           </SelectItem>
         </SelectContent>
       </Select>
+
+      <!-- NON-AUTH BUTTONS -->
       <RouterLink to="/login"
         ><Button
           variant="secondary"
           class="h-9 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"
+          :class="isLogged() ? 'hidden' : 'flex'"
         >
           Log In
         </Button></RouterLink
@@ -145,10 +158,55 @@ const selectedLang = computed(() =>
         <Button
           variant="secondary"
           class="h-9 px-4 text-sm font-bold bg-action-button hover:cursor-pointer text-white hover:bg-sky-400 flex items-center justify-center"
+          :class="isLogged() ? 'hidden' : 'flex'"
         >
           Join now
         </Button>
       </RouterLink>
+
+      <!-- AUTHENTICATED BUTTONS -->
+      <RouterLink to="/wallet">
+        <Button
+          variant="secondary"
+          class="h-9 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"
+          :class="isLogged() ? 'flex' : 'hidden'"
+        >
+          Wallet
+        </Button>
+      </RouterLink>
+
+      <RouterLink to="/profile">
+        <Button
+          variant="secondary"
+          class="h-9 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"
+          :class="isLogged() ? 'flex' : 'hidden'"
+        >
+          Profile
+        </Button>
+      </RouterLink>
+
+      <!-- ADMIN BUTTON -->
+
+      <RouterLink to="/admin/dashboard">
+        <Button
+          variant="secondary"
+          class="h-9 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"
+          :class="isAdmin() ? 'flex' : 'hidden'"
+        >
+          Dashboard
+        </Button>
+      </RouterLink>
+
+      <!-- LOGOUT BUTTON -->
+      <Button
+        variant="secondary"
+        class="h-9 text-sm font-bold bg-action-button hover:cursor-pointer text-white hover:bg-sky-500 flex items-center justify-center"
+        :class="isLogged() ? 'flex' : 'hidden'"
+        @click="handleLogout"
+      >
+        Logout
+      </Button>
+
       <Button
         variant="secondary"
         class="h-9 px-4 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"

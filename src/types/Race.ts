@@ -7,4 +7,5 @@ export interface Race {
   startTime: string;
   status: "scheduled" | "open" | "closed" | "finished";
   horses: Horse[];
+  result?: string;
 }

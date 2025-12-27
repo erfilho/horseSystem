@@ -5,6 +5,7 @@ export const useAuthStore = defineStore("auth", {
   state: () => ({
     user: null as User | null,
     isAuthenticated: false,
+    isAdmin: false,
   }),
 
   actions: {
@@ -14,7 +15,11 @@ export const useAuthStore = defineStore("auth", {
         name: "Demo User",
         email: email,
         balance: 1000,
+        role: "admin",
       };
+
+      this.isAdmin = this.user.role === "admin";
+
       this.isAuthenticated = true;
 
       localStorage.setItem("auth", JSON.stringify({ user: this.user }));
@@ -22,17 +27,18 @@ export const useAuthStore = defineStore("auth", {
 
     logout() {
       this.user = null;
+      this.isAdmin = false;
       this.isAuthenticated = false;
       localStorage.removeItem("auth");
     },
 
-    restoreSession(){
+    restoreSession() {
       const data = localStorage.getItem("auth");
-      if(data){
+      if (data) {
         const parsed = JSON.parse(data);
         this.user = parsed.user;
         this.isAuthenticated = true;
       }
-    }
+    },
   },
 });

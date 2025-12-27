@@ -11,7 +11,7 @@ const password = ref("");
 
 function handleLogin() {
   auth.login(email.value, password.value);
-  router.push("/profile");
+  router.push("/");
 }
 </script>
 
