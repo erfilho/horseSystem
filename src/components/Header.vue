@@ -7,6 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
+
 import {
   AnFilledPlayCircle,
   AnOutlinedSearch,
@@ -16,6 +17,13 @@ import {
 } from "@kalimahapps/vue-icons";
 
 import { Button } from "@/components/ui/button";
+import { useAuthStore } from "@/stores/auth.store";
+
+const auth = useAuthStore();
+
+const isLogged = () => {
+  return auth.isAuthenticated;
+};
 
 const lang = ref("ENG");
 

@@ -1,5 +1,7 @@
+import { useAuthStore } from "@/stores/auth.store";
 import Home from "@/views/Home.vue";
 import Login from "@/views/Login.vue";
+import Profile from "@/views/Profile.vue";
 import Register from "@/views/Register.vue";
 import Results from "@/views/Results.vue";
 import Wallet from "@/views/Wallet.vue";
@@ -40,9 +42,32 @@ const routes: RouteRecordRaw[] = [
     name: "results",
     component: Results,
   },
+  {
+    path: "/profile",
+    name: "profile",
+    component: Profile,
+    meta: { requiresAuth: true },
+  },
 ];
 
-export const router = createRouter({
+const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+router.beforeEach((to) => {
+  const auth = useAuthStore();
+
+  if (to.meta.requiresAuth && !auth.isAuthenticated) {
+    return "/login";
+  }
+
+  if (
+    (to.path === "/login" || to.path === "/register") &&
+    auth.isAuthenticated
+  ) {
+    return "/profile";
+  }
+});
+
+export default router;
