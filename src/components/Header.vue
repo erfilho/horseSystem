@@ -43,7 +43,9 @@ const selectedLang = computed(() =>
   >
     <!-- LOGO -->
     <div class="flex items-center justify-center">
-      <img src="/logo_sample.png" class="h-32" />
+      <RouterLink to="/"
+        ><img src="/logo_sample.png" class="h-32"
+      /></RouterLink>
     </div>
 
     <!-- BUTTONS -->
@@ -122,18 +124,23 @@ const selectedLang = computed(() =>
           </SelectItem>
         </SelectContent>
       </Select>
-      <Button
-        variant="secondary"
-        class="h-9 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"
+      <RouterLink to="/login"
+        ><Button
+          variant="secondary"
+          class="h-9 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"
+        >
+          Log In
+        </Button></RouterLink
       >
-        Log In
-      </Button>
-      <Button
-        variant="secondary"
-        class="h-9 px-4 text-sm font-bold bg-action-button hover:cursor-pointer text-white hover:bg-sky-400 flex items-center justify-center"
-      >
-        Join now
-      </Button>
+
+      <RouterLink to="/register">
+        <Button
+          variant="secondary"
+          class="h-9 px-4 text-sm font-bold bg-action-button hover:cursor-pointer text-white hover:bg-sky-400 flex items-center justify-center"
+        >
+          Join now
+        </Button>
+      </RouterLink>
       <Button
         variant="secondary"
         class="h-9 px-4 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"

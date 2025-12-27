@@ -20,7 +20,7 @@ const linksPrimary: NavLink[] = [
   {
     title: "Home",
     icon: FlFilledHome,
-    url: "/home",
+    url: "/",
     isActive: true,
   },
   {

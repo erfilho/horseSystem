@@ -57,7 +57,7 @@ function setBetType(type: "single" | "multiple") {
           <span
             class="bg-primary-button rounded-full flex items-center justify-center w-6"
           >
-            3 </span
+            {{ betSlip.selections.length }} </span
           >Bet Slip
         </p>
       </div>

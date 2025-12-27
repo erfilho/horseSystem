@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { BxSolidTShirt } from "@kalimahapps/vue-icons";
+import { useBetSlipStore } from "@/stores/betSlip.store";
 import formatOdds from "@/utils/formatOdds";
+import { BxSolidTShirt } from "@kalimahapps/vue-icons";
+import { computed } from "vue";
 
-defineProps<{
+const props = defineProps<{
   shirtNumber: number;
   horse: string;
   jockey: string;
@@ -13,6 +15,12 @@ defineProps<{
   formCode: string;
   lastOdds: string;
 }>();
+
+const betSlip = useBetSlipStore();
+
+const isSelected = computed(() =>
+  betSlip.selections.some((s) => s.horseId === props.horse)
+);
 
 const emit = defineEmits<{
   (e: "select", payload: any): void;
@@ -39,6 +47,7 @@ const emit = defineEmits<{
 
       <button
         class="px-4 py-2 rounded-lg bg-zinc-700 hover:bg-green-600 transition text-sm font-semibold"
+        :disabled="isSelected"
         @click="emit('select', horse)"
       >
         {{ formatOdds(odds) }}
