@@ -2,6 +2,7 @@ import { useAuthStore } from "@/stores/auth.store";
 
 import AdminDashboard from "@/views/AdminDashboard.vue";
 import Home from "@/views/Home.vue";
+import HorsesDashboard from "@/views/HorsesDashboard.vue";
 import Login from "@/views/Login.vue";
 import MyBets from "@/views/MyBets.vue";
 import NotFound from "@/views/NotFound.vue";
@@ -54,6 +55,12 @@ const routes: RouteRecordRaw[] = [
     path: "/admin/dashboard",
     name: "races",
     component: AdminDashboard,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/admin/dashboard/horses",
+    name: "horsesDashboard",
+    component: HorsesDashboard,
     meta: { requiresAuth: true },
   },
   {

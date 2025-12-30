@@ -12,7 +12,7 @@ export const useWalletStore = defineStore("wallet", {
       this.balance -= amount;
       this.transactions.push({
         id: crypto.randomUUID(),
-        type: "bet",
+        type: "withdraw",
         amount: -amount,
         createdAt: new Date().toISOString(),
       });
@@ -22,7 +22,7 @@ export const useWalletStore = defineStore("wallet", {
       this.balance += amount;
       this.transactions.push({
         id: crypto.randomUUID(),
-        type: "win",
+        type: "deposit",
         amount,
         createdAt: new Date().toISOString(),
       });
