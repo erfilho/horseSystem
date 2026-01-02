@@ -1,6 +1,8 @@
 import { createPinia } from "pinia";
 import { createApp } from "vue";
 
+import piniaPersist from "pinia-plugin-persistedstate";
+
 import router from "@/routes/router.ts";
 
 import { useAuthStore } from "./stores/auth.store.ts";
@@ -10,6 +12,8 @@ import "./style.css";
 
 const app = createApp(App);
 const pinia = createPinia();
+
+pinia.use(piniaPersist);
 
 app.use(pinia);
 

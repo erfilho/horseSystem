@@ -6,6 +6,8 @@ export const useHorsesStore = defineStore("horses", {
     horses: [] as Horse[],
   }),
 
+  persist: true,
+
   actions: {
     setHorses(horses: Horse[]) {
       this.horses = horses;

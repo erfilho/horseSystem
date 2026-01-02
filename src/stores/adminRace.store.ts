@@ -6,9 +6,15 @@ export const useAdminRacesStore = defineStore("adminRaces", {
     races: [] as Race[],
   }),
 
+  persist: true,
+
   actions: {
     createRace(race: Race) {
       this.races.push(race);
+    },
+
+    removeRace(id: string) {
+      this.races = this.races.filter((race) => race.id !== id);
     },
 
     updateStatus(id: string, status: Race["status"]) {

@@ -11,11 +11,9 @@ import Button from "./ui/button/Button.vue";
 import Checkbox from "./ui/checkbox/Checkbox.vue";
 
 import { useBetSlipStore } from "@/stores/betSlip.store";
-import { useWalletStore } from "@/stores/wallet.store";
 import { computed } from "vue";
 
 const betSlip = useBetSlipStore();
-const wallet = useWalletStore();
 
 const formattedStake = computed(() =>
   new Intl.NumberFormat("pt-BR", {
