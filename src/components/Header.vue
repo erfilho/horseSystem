@@ -22,13 +22,7 @@ import { useAuthStore } from "@/stores/auth.store";
 
 const auth = useAuthStore();
 
-const isLogged = () => {
-  return auth.isAuthenticated;
-};
-
-const isAdmin = () => {
-  return auth.isAdmin;
-};
+const isLogged = computed(() => auth.isAuthenticated);
 
 const handleLogout = () => {
   auth.logout();
@@ -57,13 +51,11 @@ const selectedLang = computed(() =>
 
 <template>
   <div
-    class="h-16 shrink-0 w-full mt-4 flex items-center justify-between px-10 border-b border-zinc-800"
+    class="h-full pt-4 shrink-0 w-full col-span-3 grid grid-cols-[240px_1fr_320px] grid-rows-1 border-b border-zinc-800 gap-2 px-20"
   >
     <!-- LOGO -->
     <div class="flex items-center justify-center">
-      <RouterLink to="/"
-        ><img src="/logo_sample.png" class="h-32"
-      /></RouterLink>
+      <RouterLink to="/"><img src="/test_logo.png" class="h-28" /></RouterLink>
     </div>
 
     <!-- BUTTONS -->
@@ -144,64 +136,42 @@ const selectedLang = computed(() =>
       </Select>
 
       <!-- NON-AUTH BUTTONS -->
-      <RouterLink to="/login"
-        ><Button
-          variant="secondary"
-          class="h-9 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"
-          :class="isLogged() ? 'hidden' : 'flex'"
+      <template v-if="!isLogged">
+        <RouterLink to="/login"
+          ><Button
+            variant="secondary"
+            class="h-9 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"
+          >
+            Log In
+          </Button></RouterLink
         >
-          Log In
-        </Button></RouterLink
-      >
 
-      <RouterLink to="/register">
-        <Button
-          variant="secondary"
-          class="h-9 px-4 text-sm font-bold bg-action-button hover:cursor-pointer text-white hover:bg-sky-400 flex items-center justify-center"
-          :class="isLogged() ? 'hidden' : 'flex'"
-        >
-          Join now
-        </Button>
-      </RouterLink>
+        <RouterLink to="/register">
+          <Button
+            variant="secondary"
+            class="h-9 px-4 text-sm font-bold bg-action-button hover:cursor-pointer text-white hover:bg-sky-400 flex items-center justify-center"
+          >
+            Join now
+          </Button>
+        </RouterLink>
+      </template>
 
       <!-- AUTHENTICATED BUTTONS -->
-      <RouterLink to="/wallet">
-        <Button
-          variant="secondary"
-          class="h-9 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"
-          :class="isLogged() ? 'flex' : 'hidden'"
-        >
-          Wallet
-        </Button>
-      </RouterLink>
 
-      <RouterLink to="/profile">
+      <RouterLink to="/user/profile" v-if="isLogged">
         <Button
           variant="secondary"
           class="h-9 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"
-          :class="isLogged() ? 'flex' : 'hidden'"
         >
           Profile
         </Button>
       </RouterLink>
 
-      <!-- ADMIN BUTTON -->
-
-      <RouterLink to="/admin/dashboard">
-        <Button
-          variant="secondary"
-          class="h-9 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"
-          :class="isAdmin() ? 'flex' : 'hidden'"
-        >
-          Dashboard
-        </Button>
-      </RouterLink>
-
       <!-- LOGOUT BUTTON -->
       <Button
+        v-if="isLogged"
         variant="secondary"
         class="h-9 text-sm font-bold bg-action-button hover:cursor-pointer text-white hover:bg-sky-500 flex items-center justify-center"
-        :class="isLogged() ? 'flex' : 'hidden'"
         @click="handleLogout"
       >
         Logout

@@ -23,7 +23,7 @@ function handleRegister() {
 
 <template>
   <div
-    class="min-h-screen flex items-center justify-center bg-linear-to-br from-df-bg to-content-bg"
+    class="h-full flex items-center justify-center bg-linear-to-br from-df-bg to-content-bg col-span-3"
   >
     <div class="w-full max-w-md bg-content-bg rounded-2xl shadow-xl p-8">
       <!-- Header -->

@@ -1,74 +1,158 @@
 <script setup lang="ts">
 import {
   AnFilledPlaySquare,
+  BsGraphUp,
+  CoWallet,
+  FaHorse,
   FaHorseHead,
   FlFilledHome,
   HiSolidGiftTop,
   LuBlocks,
+  LuReceipt,
+  MaRacetrackHorse,
 } from "@kalimahapps/vue-icons";
-import type { Component } from "vue";
+
+import { computed, type Component } from "vue";
+import { useRoute } from "vue-router";
+
 import LinkButton from "./LinkButton.vue";
+
+const route = useRoute();
+
+const isActive = (url: string) => {
+  return route.path === url;
+};
+
+import { useAuthStore } from "@/stores/auth.store";
+
+const auth = useAuthStore();
+
+const isLogged = computed(() => auth.isAuthenticated);
+const isAdmin = computed(() => auth.isAdmin);
 
 interface NavLink {
   title: string;
   icon: Component;
   url: string;
-  isActive: boolean;
 }
 
-const linksPrimary: NavLink[] = [
+const commonLinks: NavLink[] = [
   {
     title: "Home",
     icon: FlFilledHome,
     url: "/",
-    isActive: true,
   },
   {
     title: "Rewards",
     icon: HiSolidGiftTop,
     url: "/rewards",
-    isActive: false,
   },
   {
     title: "In-Play",
     icon: AnFilledPlaySquare,
     url: "/in-play",
-    isActive: false,
   },
   {
     title: "Acca Builder",
     icon: LuBlocks,
     url: "/acca-builder",
-    isActive: false,
   },
 ];
 
-const sports: NavLink[] = [
+const sportsLinks: NavLink[] = [
   {
     title: "Horse Racing",
     icon: FaHorseHead,
     url: "/horses",
-    isActive: false,
+  },
+];
+
+const userLinks: NavLink[] = [
+  {
+    title: "Wallet",
+    icon: CoWallet,
+    url: "/user/wallet",
+  },
+  {
+    title: "My bets",
+    icon: LuReceipt,
+    url: "/user/my-bets",
+  },
+  {
+    title: "Results",
+    icon: BsGraphUp,
+    url: "/user/results",
+  },
+];
+
+const adminLinks: NavLink[] = [
+  {
+    title: "Races register",
+    icon: MaRacetrackHorse,
+    url: "/admin/dashboard/races",
+  },
+  {
+    title: "Horses register",
+    icon: FaHorse,
+    url: "/admin/dashboard/races",
   },
 ];
 </script>
 
 <template>
-  <div class="w-64 p-2 flex flex-col gap-1 justify-start items-center">
+  <div class="flex flex-col gap-1 justify-start items-center w-full">
+    <!-- Common links -->
     <LinkButton
-      v-for="link in linksPrimary"
+      v-for="link in commonLinks"
       :title="link.title"
       :icon="link.icon"
       :url="link.url"
-      :isActive="link.isActive"
+      :isActive="isActive(link.url)"
     />
-    <span class="text-sm text-zinc-400 w-42 px-2 my-4 font-bold"> Sports </span>
+    
+    <template v-if="isAdmin">
+      <!-- Admin menu links -->
+      <span class="text-sm text-zinc-400 w-11/12 px-2 my-4 font-bold">
+        Admin menu
+      </span>
+
+      <LinkButton
+        v-for="link in adminLinks"
+        :title="link.title"
+        :icon="link.icon"
+        :url="link.url"
+        :isActive="isActive(link.url)"
+      />
+    </template>
+
+    <!-- User menu links -->
+    <span
+      v-if="isLogged"
+      class="text-sm text-zinc-400 w-11/12 px-2 my-4 font-bold"
+    >
+      Menu
+    </span>
+
     <LinkButton
-      v-for="link in sports"
+      v-for="link in userLinks"
+      v-if="isLogged"
       :title="link.title"
       :icon="link.icon"
       :url="link.url"
-      :isActive="link.isActive"
+      :isActive="isActive(link.url)"
+    />
+
+    <!-- Sports list -->
+    <span class="text-sm text-zinc-400 w-11/12 px-2 my-4 font-bold">
+      Sports
+    </span>
+
+    <LinkButton
+      v-for="link in sportsLinks"
+      :title="link.title"
+      :icon="link.icon"
+      :url="link.url"
+      :isActive="isActive(link.url)"
     />
   </div>
 </template>

@@ -47,7 +47,9 @@ function setBetType(type: "single" | "multiple") {
 </script>
 
 <template>
-  <div class="p-2 flex flex-col gap-1 justify-start items-center rounded-xl">
+  <div
+    class="flex flex-col gap-1 justify-start items-center rounded-xl w-11/12"
+  >
     <div class="w-full h-full bg-content-bg rounded-xl p-2 flex flex-col gap-2">
       <!-- Title -->
       <div class="w-full flex flex-col px-1">
@@ -89,7 +91,7 @@ function setBetType(type: "single" | "multiple") {
       </div>
 
       <!-- Bets types buttons -->
-      <div class="gap-2 flex justify-between py-1">
+      <div class="gap-2 flex justify-between py-1 overflow-auto">
         <Button
           variant="secondary"
           class="bg-filter-button text-teal-400 hover:bg-teal-800 hover:cursor-pointer font-bold"

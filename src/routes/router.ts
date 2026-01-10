@@ -34,25 +34,31 @@ const routes: RouteRecordRaw[] = [
     component: Register,
   },
   {
-    path: "/wallet",
+    path: "/user/wallet",
     name: "wallet",
     component: Wallet,
     meta: { requiresAuth: true },
   },
   {
-    path: "/my-bets",
+    path: "/user/my-bets",
     name: "my-bets",
     component: MyBets,
     meta: { requiresAuth: true },
   },
   {
-    path: "/results",
+    path: "/user/results",
     name: "results",
     component: Results,
     meta: { requiresAuth: true },
   },
   {
-    path: "/admin/dashboard",
+    path: "/user/profile",
+    name: "profile",
+    component: Profile,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/admin/dashboard/races",
     name: "races",
     component: AdminDashboard,
     meta: { requiresAuth: true },
@@ -61,12 +67,6 @@ const routes: RouteRecordRaw[] = [
     path: "/admin/dashboard/horses",
     name: "horsesDashboard",
     component: HorsesDashboard,
-    meta: { requiresAuth: true },
-  },
-  {
-    path: "/profile",
-    name: "profile",
-    component: Profile,
     meta: { requiresAuth: true },
   },
   {

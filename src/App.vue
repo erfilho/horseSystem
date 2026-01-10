@@ -4,7 +4,9 @@ import Header from "./components/Header.vue";
 </script>
 
 <template>
-  <div class="flex h-screen w-full flex-col overflow-hidden bg-df-bg">
+  <div
+    class="h-screen w-full overflow-hidden bg-df-bg grid grid-cols-3 grid-rows-[80px_1fr] gap-0"
+  >
     <Header />
     <RouterView />
   </div>

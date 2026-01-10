@@ -17,9 +17,9 @@ function handleLogin() {
 
 <template>
   <div
-    class="min-h-screen flex items-center justify-center bg-linear-to-br from-df-bg to-content-bg"
+    class="h-full flex justify-center items-center bg-linear-to-br from-df-bg to-content-bg col-span-3"
   >
-    <div class="w-full max-w-md bg-content-bg rounded-2xl shadow-xl p-8">
+    <div class="w-full max-w-md h-2/5 bg-content-bg rounded-2xl shadow-xl p-8">
       <!-- Header -->
       <div class="mb-8 text-center">
         <h1 class="text-2xl font-bold text-white">Horse Racing</h1>

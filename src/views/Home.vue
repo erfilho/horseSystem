@@ -5,7 +5,9 @@ import Sidebar from "../components/Sidebar.vue";
 </script>
 
 <template>
-  <div class="px-10 py-2 flex grow h-full overflow-hidden">
+  <div
+    class="py-2 h-full w-full overflow-hidden grid grid-cols-[240px_1fr_320px] grid-rows-1 col-span-3 gap-2 px-20"
+  >
     <Sidebar />
     <MainContent />
     <BetSlip />

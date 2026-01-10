@@ -111,27 +111,29 @@ function addToBetSlip(race: any) {
 </script>
 
 <template>
-  <div
-    class="w-4/6 p-2 flex flex-1 flex-col gap-2 justify-start items-center rounded-xl"
-  >
+  <div class="flex flex-1 flex-col gap-2 justify-start items-center rounded-xl">
     <div class="text-white w-full p-0 space-y-6">
       <!-- HEADER -->
       <div
         class="relative rounded-xl overflow-hidden p-6"
         style="
-          background-image: url('/horse.png');
-          background-size: cover;
-          background-position: 10%;
+          background-image: url('/horsess.png');
+          background-size: 70%;
+          background-position: 100% 22%;
+          background-repeat: no-repeat;
         "
       >
         <div
-          class="absolute inset-0 bg-linear-to-tr from-black/90 via-black/70 to-transparent"
+          class="absolute inset-0 bg-linear-to-tr from-black/90 via-black/50 to-transparent"
+        ></div>
+        <div
+          class="absolute inset-0 bg-linear-to-r from-black/95 via-black/50 to-transparent"
         ></div>
 
         <div class="relative z-10">
-          <div class="flex items-center justify-between">
-            <div class="flex flex-col gap-2">
-              <h1 class="text-2xl font-semibold">Horse Racing</h1>
+          <div class="flex items-center justify-between w-full">
+            <div class="flex flex-col gap-2 w-2/5">
+              <h1 class="text-3xl font-semibold">Horse Racing</h1>
 
               <!-- Main races tabs -->
               <div class="flex gap-2 mt-2">

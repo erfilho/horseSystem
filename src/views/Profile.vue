@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const activeTab = ref<"profile" | "address" | "preferences" | "account">(
-  "profile"
-);
+type Tab = "profile" | "address" | "preferences" | "account";
+
+const tabs: Tab[] = ["profile", "address", "preferences", "account"];
+
+const activeTab = ref("profile");
 
 const firstName = ref("");
 const lastName = ref("");
@@ -23,7 +25,9 @@ function saveProfile() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-linear-to-br from-df-bg to-content-bg p-6">
+  <div
+    class="min-h-screen bg-linear-to-br from-df-bg to-content-bg p-6 col-span-3"
+  >
     <div class="max-w-6xl mx-auto">
       <!-- Header -->
       <div class="mb-8">
@@ -37,27 +41,17 @@ function saveProfile() {
         <!-- Tabs -->
         <div class="flex gap-6 border-b border-gray-700 mb-8">
           <button
-            @click="activeTab = 'profile'"
-            :class="
-              activeTab === 'profile'
+            v-for="tab in tabs"
+            :key="tab"
+            @click="activeTab = tab"
+            :class="[
+              'pb-3 font-medium transition capitalize',
+              activeTab === tab
                 ? 'text-green-400 border-b-2 border-green-400'
-                : 'text-gray-400 hover:text-white'
-            "
-            class="pb-3 font-medium transition"
+                : 'text-gray-400 hover:text-white',
+            ]"
           >
-            Profile
-          </button>
-
-          <button class="pb-3 font-medium text-gray-500 cursor-not-allowed">
-            Address
-          </button>
-
-          <button class="pb-3 font-medium text-gray-500 cursor-not-allowed">
-            Preferences
-          </button>
-
-          <button class="pb-3 font-medium text-gray-500 cursor-not-allowed">
-            Account
+            {{ tab }}
           </button>
         </div>
 
@@ -118,6 +112,79 @@ function saveProfile() {
               class="w-full rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
             />
           </div>
+        </div>
+
+        <!-- Address form -->
+        <div
+          v-if="activeTab === 'address'"
+          class="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
+          <div>
+            <label class="block text-sm text-gray-400 mb-1">Country</label>
+            <input class="input" placeholder="United Kingdom" />
+          </div>
+
+          <div>
+            <label class="block text-sm text-gray-400 mb-1">City</label>
+            <input class="input" placeholder="London" />
+          </div>
+
+          <div class="md:col-span-2">
+            <label class="block text-sm text-gray-400 mb-1">Address</label>
+            <input class="input" placeholder="Street and number" />
+          </div>
+
+          <div>
+            <label class="block text-sm text-gray-400 mb-1">Postal code</label>
+            <input class="input" placeholder="SW1A 1AA" />
+          </div>
+        </div>
+
+        <!-- Preferences form -->
+        <div v-if="activeTab === 'preferences'" class="space-y-6">
+          <div class="flex items-center justify-between">
+            <span class="text-white">Email notifications</span>
+            <input type="checkbox" class="accent-green-500" />
+          </div>
+
+          <div class="flex items-center justify-between">
+            <span class="text-white">SMS notifications</span>
+            <input type="checkbox" class="accent-green-500" />
+          </div>
+
+          <div class="flex items-center justify-between">
+            <span class="text-white">Odds format</span>
+            <select class="input">
+              <option>Decimal</option>
+              <option>Fractional</option>
+              <option>American</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Account form -->
+        <div v-if="activeTab === 'account'" class="space-y-6">
+          <div>
+            <label class="block text-sm text-gray-400 mb-1"
+              >Change password</label
+            >
+            <input type="password" class="input" placeholder="New password" />
+          </div>
+
+          <div>
+            <label class="block text-sm text-gray-400 mb-1">
+              Confirm password
+            </label>
+            <input
+              type="password"
+              class="input"
+              placeholder="Confirm password"
+            />
+          </div>
+
+          <button class="text-red-400 hover:text-red-300">
+            Deactivate account
+          </button>
         </div>
 
         <!-- Actions -->
