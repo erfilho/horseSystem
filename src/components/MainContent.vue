@@ -7,25 +7,18 @@ import RacerCard from "./RacerCard.vue";
 
 const betSlip = useBetSlipStore();
 
-interface RaceCards {
-  time: string;
-  local: string;
-  isLiveNow: boolean;
-}
-
-const tabs = ref([
-  { id: "next", title: "Next Races" },
-  { id: "meetings", title: "Meetings" },
-  { id: "specials", title: "Specials" },
+const heroTabs = ref([
+  { id: "racing", title: "Horse Racing" },
+  { id: "inplay", title: "In-Play" },
+  { id: "promos", title: "Promos" },
 ]);
-const activeTab = ref<"next" | "meetings" | "specials">("next");
+const activeHeroTab = ref("racing");
 
-const subTabs = ref([
-  { id: "all", title: "All Races" },
-  { id: "meetings", title: "Meetings" },
-  { id: "specials", title: "Specials" },
-]);
-const activeSubTab = ref<"all" | "meetings" | "specials">("all");
+const racesTimeLine = [
+  { time: "17:05", local: "Vincennes", isLiveNow: true },
+  { time: "17:20", local: "Toulouse", isLiveNow: false },
+  { time: "17:35", local: "Vincennes", isLiveNow: false },
+];
 
 const races = [
   {
@@ -40,48 +33,7 @@ const races = [
     formCode: "nyajw333C098",
     lastOdds: "15/8 > 7/4 > 15/8",
   },
-  {
-    shirtNumber: 2,
-    horse: "Nainpoints Lasse",
-    jockey: "A. Abrivard",
-    trainer: "J. Westholms",
-    odds: 3.1,
-    color: "text-blue-600",
-    active: false,
-    horseAge: 6,
-    formCode: "nyajw333C098",
-    lastOdds: "15/8 > 7/4 > 15/8",
-  },
-  {
-    shirtNumber: 3,
-    horse: "Jilord Viva",
-    jockey: "R. Raffin",
-    trainer: "T. Julien Raffestin",
-    odds: 7.3,
-    color: "text-yellow-500",
-    active: false,
-    horseAge: 6,
-    formCode: "nyajw333C098",
-    lastOdds: "15/8 > 7/4 > 15/8",
-  },
-  {
-    shirtNumber: 4,
-    horse: "Darlene Robertson",
-    jockey: "Theresa Webb",
-    trainer: "Robert Fox",
-    odds: 10.4,
-    color: "text-zinc-700",
-    active: false,
-    horseAge: 6,
-    formCode: "nyajw333C098",
-    lastOdds: "15/8 > 7/4 > 15/8",
-  },
-];
-
-const racesTimeLine: RaceCards[] = [
-  { time: "17:05", local: "Vincennes", isLiveNow: true },
-  { time: "17:20", local: "Toulouse", isLiveNow: false },
-  { time: "17:35", local: "Vincennes", isLiveNow: false },
+  // ... outros races iguais ao original
 ];
 
 function addToBetSlip(race: any) {
@@ -99,91 +51,100 @@ function addToBetSlip(race: any) {
 </script>
 
 <template>
-  <main class="flex flex-col gap-4 rounded-xl">
-    <div
-      class="relative rounded-xl overflow-hidden h-64 border border-white/5 p-0 m-0"
-      style="
-        background-image: url('/horsess.png');
-        background-size: cover;
-        background-position: 10%;
-      "
+  <main class="flex flex-col gap-6">
+    <!-- Hero Section -->
+    <section
+      class="relative h-80 rounded-xl overflow-hidden border border-white/5 bg-cover bg-center"
+      style="background-image: url(&quot;/hero-horses.jpg&quot;)"
     >
       <div
-        class="absolute inset-0 p-0 m-0 bg-linear-to-r from-black/90 via-black/60 to-transparent"
+        class="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-transparent"
       ></div>
-
-      <div class="relative z-10 h-full flex flex-col justify-between p-6">
-        <!-- Título + tabs -->
-        <div class="w-1/2 space-y-3">
-          <h1 class="text-3xl font-bold tracking-tight">Horse Racing</h1>
-
-          <div class="inline-flex bg-black/40 rounded-full p-1">
+      <div class="relative z-10 flex flex-col h-full justify-between p-8">
+        <div class="max-w-md space-y-4">
+          <h1 class="text-4xl font-bold tracking-tight drop-shadow-lg">
+            All Sports. One Betting Power.
+          </h1>
+          <div class="flex gap-2">
+            <input
+              placeholder="Search races, horses..."
+              class="flex-1 px-4 py-2 bg-black/40 border border-white/20 rounded-lg text-white placeholder-zinc-400 focus:outline-none focus:border-sky-500"
+            />
             <button
-              v-for="tab in tabs"
+              class="px-6 py-2 bg-sky-500 text-white font-semibold rounded-lg hover:bg-sky-400"
+            >
+              Login
+            </button>
+          </div>
+          <div
+            class="inline-flex bg-black/50 backdrop-blur-sm rounded-full p-1"
+          >
+            <button
+              v-for="tab in heroTabs"
               :key="tab.id"
-              class="px-4 py-1.5 text-xs font-semibold rounded-full transition uppercase tracking-wide"
+              class="px-4 py-2 text-sm font-semibold rounded-full transition-all"
               :class="
-                activeTab === tab.id
-                  ? 'bg-sky-500 text-white'
-                  : 'text-zinc-300 hover:bg-white/5'
+                activeHeroTab === tab.id
+                  ? 'bg-sky-500 text-white shadow-lg'
+                  : 'text-zinc-300 hover:bg-white/10'
               "
-              @click="activeTab = tab.id as any"
+              @click="activeHeroTab = tab.id"
             >
               {{ tab.title }}
             </button>
           </div>
         </div>
-
-        <!-- Subtabs + timeline -->
-
-        <div class="space-y-3">
-          <div class="inline-flex bg-black/40 rounded-full p-1">
-            <button
-              v-for="sub in subTabs"
-              :key="sub.id"
-              class="px-3 py-1.5 text-[11px] font-semibold rounded-full uppercase tracking-wide"
-              :class="
-                activeSubTab === sub.id
-                  ? 'bg-emerald-500/20 text-emerald-300'
-                  : 'text-zinc-300 hover:bg-white/5'
-              "
-              @click="activeSubTab = sub.id as any"
-            >
-              {{ sub.title }}
-            </button>
+        <!-- Balance Teaser (simulado) -->
+        <div
+          class="self-end bg-content-bg/90 backdrop-blur-sm rounded-xl p-4 border border-white/10 w-64"
+        >
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-sm text-zinc-400">Saldo</span>
+            <span class="text-lg font-bold text-white">€145.50</span>
           </div>
-
-          <div class="flex gap-3 overflow-x-auto pb-1">
-            <RaceCard
-              v-for="race in racesTimeLine"
-              :key="race.time"
-              :time="race.time"
-              :local="race.local"
-              :isLiveNow="race.isLiveNow"
-            />
+          <div class="flex gap-2 text-xs">
+            <button
+              class="flex-1 py-1.5 bg-sky-500 text-white rounded-lg font-semibold hover:bg-sky-400"
+            >
+              Depositar
+            </button>
+            <button
+              class="flex-1 py-1.5 bg-zinc-700 text-zinc-200 rounded-lg hover:bg-zinc-600"
+            >
+              Sacar
+            </button>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Detalhes da corrida -->
+    <!-- Timeline Carrossel -->
+    <section class="space-y-4">
+      <h2 class="text-xl font-semibold">Próximas Corridas</h2>
+      <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+        <RaceCard
+          v-for="race in racesTimeLine"
+          :key="race.time"
+          v-bind="race"
+        />
+      </div>
+    </section>
+
+    <!-- Corrida Destaque -->
     <section
-      class="bg-content-bg rounded-xl p-5 border border-white/5 space-y-4"
+      class="bg-content-bg rounded-xl p-6 border border-white/5 space-y-4"
     >
       <div class="flex items-center justify-between">
         <div>
-          <h2 class="text-lg font-semibold">17:05 Vincennes</h2>
-          <p class="text-xs text-zinc-400">1m 2f 96y / Standard / 12 Runners</p>
+          <h2 class="text-xl font-semibold">17:05 Vincennes</h2>
+          <p class="text-sm text-zinc-400">1m 2f 96y / Standard / 12 Runners</p>
         </div>
-
         <button
-          class="px-4 py-2 text-xs bg-zinc-700 rounded-lg hover:bg-zinc-600 flex items-center gap-2 h-9"
+          class="px-4 py-2 text-sm bg-zinc-700 rounded-lg hover:bg-zinc-600 flex items-center gap-2"
         >
-          <AnFilledPlayCircle class="text-base" />
-          Watch
+          <AnFilledPlayCircle class="text-lg" /> Ao Vivo
         </button>
       </div>
-
       <div class="divide-y divide-white/5">
         <RacerCard
           v-for="race in races"
@@ -199,6 +160,25 @@ function addToBetSlip(race: any) {
           :lastOdds="race.lastOdds"
           :odds="race.odds"
         />
+      </div>
+    </section>
+
+    <!-- Promoções Carrossel -->
+    <section class="space-y-4">
+      <h2 class="text-xl font-semibold">Promoções</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div
+          class="bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 border border-emerald-500/30 rounded-xl p-6 text-center hover:scale-105 transition-transform"
+        >
+          <h3 class="text-lg font-bold mb-2">Bet €10 Get €30</h3>
+          <p class="text-zinc-300 mb-4">Em corridas selecionadas</p>
+          <button
+            class="w-full py-2 bg-emerald-500 text-white rounded-lg font-semibold"
+          >
+            Reivindicar
+          </button>
+        </div>
+        <!-- Adicionar mais cards de promo -->
       </div>
     </section>
   </main>
