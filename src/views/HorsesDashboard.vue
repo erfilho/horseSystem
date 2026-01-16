@@ -5,6 +5,8 @@ import { ref } from "vue";
 
 const horsesStore = useHorsesStore();
 
+const editingHorseId = ref<string | null>(null);
+
 const form = ref<Omit<Horse, "id">>({
   name: "",
   age: 0,
@@ -12,21 +14,14 @@ const form = ref<Omit<Horse, "id">>({
   trainer_name: "",
 });
 
-function addHorse() {
-  if (!form.value.name) return;
-
-  horsesStore.addHorse({
-    id: crypto.randomUUID(),
-    ...form.value,
-  });
-
-  // reset
+function resetForm() {
   form.value = {
     name: "",
     age: 0,
     breed: "",
     trainer_name: "",
   };
+  editingHorseId.value = null;
 }
 
 function removeHorse(id: string) {
@@ -34,113 +29,161 @@ function removeHorse(id: string) {
     horsesStore.removeHorse(id);
   }
 }
+
+function saveHorse() {
+  if (!form.value.name) return;
+
+  if (editingHorseId.value) {
+    horsesStore.updateHorse(editingHorseId.value, form.value);
+  } else {
+    horsesStore.addHorse({
+      id: crypto.randomUUID(),
+      ...form.value,
+    });
+  }
+
+  resetForm();
+}
+
+function editHorse(horse: Horse) {
+  editingHorseId.value = horse.id;
+  form.value = {
+    name: horse.name,
+    age: horse.age,
+    breed: horse.breed,
+    trainer_name: horse.trainer_name,
+  };
+}
 </script>
 
 <template>
-  <div class="p-6 space-y-8 flex flex-col justify-center items-center">
-    <!-- Header -->
-    <header class="flex justify-between items-center text-white">
-      <h1 class="text-2xl font-bold">Dashboard • Horses</h1>
-    </header>
+  <div class="col-span-3 flex justify-center">
+    <div class="p-6 text-white space-y-6 w-4/5">
+      <!-- PAGE TITLE -->
+      <div>
+        <h1 class="text-2xl font-bold">HORSE REGISTRATION</h1>
+      </div>
 
-    <!-- Form -->
-    <section class="bg-content-bg rounded-xl shadow p-6 w-2/5 text-white">
-      <h2 class="font-semibold mb-4">Horse register</h2>
+      <!-- MAIN GRID -->
+      <div class="grid grid-cols-3 gap-6">
+        <!-- LEFT: FORM -->
+        <div
+          class="col-span-1 bg-content-bg rounded-xl p-5 border border-gray-700 space-y-4"
+        >
+          <h2 class="font-semibold">Add New Horse</h2>
 
-      <div class="flex flex-col gap-2">
-        <div class="w-full flex flex-row gap-2">
-          <div class="flex flex-col w-1/2">
-            <label for="name" class="text-sm"> Horse name </label>
-            <input
-              v-model="form.name"
-              id="name"
-              class="w-5/6 rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-1 focus:ring-green-500 outline-none"
-            />
-          </div>
+          <input
+            v-model="form.name"
+            placeholder="Horse Name"
+            class="w-full rounded-lg bg-df-bg border border-gray-700 px-4 py-2"
+          />
 
-          <div class="flex flex-col w-1/2">
-            <label for="name" class="text-sm"> Horse breed </label>
-            <input
-              v-model="form.breed"
-              class="w-5/6 rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-1 focus:ring-green-500 outline-none"
-            />
-          </div>
+          <input
+            v-model.number="form.age"
+            type="number"
+            placeholder="Age"
+            class="w-full rounded-lg bg-df-bg border border-gray-700 px-4 py-2"
+          />
+
+          <input
+            v-model="form.breed"
+            placeholder="Breed"
+            class="w-full rounded-lg bg-df-bg border border-gray-700 px-4 py-2"
+          />
+
+          <input
+            v-model="form.trainer_name"
+            placeholder="Trainer"
+            class="w-full rounded-lg bg-df-bg border border-gray-700 px-4 py-2"
+          />
+
+          <button
+            @click="saveHorse"
+            class="w-full bg-blue-600 hover:bg-blue-500 transition py-2 rounded-lg font-semibold"
+          >
+            {{ editingHorseId ? "Update Horse" : "Register Horse" }}
+          </button>
         </div>
 
-        <div class="w-full flex flex-row gap-2">
-          <div class="flex flex-col w-full">
-            <label for="age" class="text-sm"> Horse age </label>
+        <!-- RIGHT: TABLE -->
+        <div
+          class="col-span-2 bg-content-bg rounded-xl p-5 border border-gray-700"
+        >
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="font-semibold">Registered Horses</h2>
+
             <input
-              v-model.number="form.age"
-              type="number"
-              id="age"
-              placeholder="Age"
-              class="w-5/6 rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-1 focus:ring-green-500 outline-none"
+              type="text"
+              placeholder="Search horse..."
+              class="bg-df-bg border border-gray-700 rounded-lg px-3 py-2 text-sm"
             />
           </div>
 
-          <div class="flex flex-col w-full">
-            <label for="name" class="text-sm"> Horse trainer </label>
-            <input
-              v-model="form.trainer_name"
-              placeholder="Trainer name"
-              class="w-5/6 rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-1 focus:ring-green-500 outline-none"
-            />
+          <table class="w-full text-sm">
+            <thead class="text-gray-400 border-b border-gray-700">
+              <tr>
+                <th class="py-2 text-left">#</th>
+                <th class="text-left">Horse Name</th>
+                <th>Age</th>
+                <th>Breed</th>
+                <th>Trainer</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                v-for="(horse, index) in horsesStore.horses"
+                :key="horse.id"
+                class="border-b border-gray-800 hover:bg-[#1f2937] transition"
+              >
+                <td class="py-2">{{ index + 1 }}</td>
+                <td>{{ horse.name }}</td>
+                <td>{{ horse.age }}</td>
+                <td>{{ horse.breed }}</td>
+                <td>{{ horse.trainer_name }}</td>
+                <td class="text-right flex justify-end gap-2 py-2">
+                  <button
+                    @click="editHorse(horse)"
+                    class="p-1 rounded bg-gray-700 hover:bg-gray-600"
+                    title="Edit horse"
+                  >
+                    ✎l-to-br
+                  </button>
+                  <button
+                    @click="removeHorse(horse.id)"
+                    class="p-1 rounded bg-red-600 hover:bg-red-500"
+                  >
+                    🗑
+                  </button>
+                </td>
+              </tr>
+
+              <tr v-if="horsesStore.horses.length === 0">
+                <td colspan="6" class="text-center py-6 text-gray-400">
+                  No horses registered
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- FOOTER -->
+          <div
+            class="flex justify-between items-center text-sm text-gray-500 pt-4"
+          >
+            <span>
+              Showing 1 to {{ horsesStore.horses.length }} of
+              {{ horsesStore.horses.length }} entries
+            </span>
+
+            <div class="flex gap-2">
+              <button class="px-3 py-1 bg-gray-700 rounded">Prev</button>
+              <button class="px-3 py-1 bg-gray-700 rounded">1</button>
+              <button class="px-3 py-1 bg-gray-700 rounded">Next</button>
+            </div>
           </div>
         </div>
       </div>
-
-      <button
-        @click="addHorse"
-        class="bg-green-600 hover:bg-green-500 cursor-pointer transition text-white font-semibold px-6 py-2 rounded-lg mt-3"
-      >
-        Add horse
-      </button>
-    </section>
-
-    <!-- Table -->
-    <section class="bg-content-bg rounded-xl shadow p-6 overflow-x-auto w-2/5">
-      <span class="text-sm text-gray-500">
-        Total: {{ horsesStore.horses.length }}
-      </span>
-      <table class="w-full text-left border-collapse">
-        <thead>
-          <tr class="border-b text-sm text-gray-500">
-            <th class="py-2">Name</th>
-            <th>Age</th>
-            <th>Breed</th>
-            <th>Trainer</th>
-            <th class="text-right">Actions</th>
-          </tr>
-        </thead>
-
-        <tbody class="text-white">
-          <tr
-            v-for="horse in horsesStore.horses"
-            :key="horse.id"
-            class="border-b last:border-none"
-          >
-            <td class="py-2 font-medium">{{ horse.name }}</td>
-            <td>{{ horse.age }}</td>
-            <td>{{ horse.breed }}</td>
-            <td>{{ horse.trainer_name }}</td>
-            <td class="text-right">
-              <button
-                @click="removeHorse(horse.id)"
-                class="text-red-600 hover:underline cursor-pointer"
-              >
-                Delete
-              </button>
-            </td>
-          </tr>
-
-          <tr v-if="horsesStore.horses.length === 0">
-            <td colspan="5" class="text-center py-6 text-gray-400">
-              No horses registered!
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+    </div>
   </div>
 </template>

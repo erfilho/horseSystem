@@ -1,29 +1,49 @@
-import type { Wallet } from "@/types/Wallet";
 import { defineStore } from "pinia";
 
+export type TransactionType = "deposit" | "withdraw";
+export type TransactionStatus = "completed" | "pending";
+export type PaymentMethod = "visa" | "bank" | "pix";
+
+export interface WalletTransaction {
+  id: string;
+  type: TransactionType;
+  amount: number;
+  status: TransactionStatus;
+  method: PaymentMethod;
+  createdAt: string;
+}
+
 export const useWalletStore = defineStore("wallet", {
-  state: (): Wallet => ({
-    balance: 1000,
-    transactions: [],
+  state: () => ({
+    balance: 1045.5,
+    transactions: [] as WalletTransaction[],
   }),
 
   actions: {
-    debit(amount: number) {
-      this.balance -= amount;
-      this.transactions.push({
+    credit(amount: number, method: PaymentMethod) {
+      this.balance += amount;
+
+      this.transactions.unshift({
         id: crypto.randomUUID(),
-        type: "withdraw",
-        amount: -amount,
+        type: "deposit",
+        amount,
+        status: "completed",
+        method: method,
         createdAt: new Date().toISOString(),
       });
     },
 
-    credit(amount: number) {
-      this.balance += amount;
-      this.transactions.push({
+    debit(amount: number) {
+      if (amount > this.balance) return;
+
+      this.balance -= amount;
+
+      this.transactions.unshift({
         id: crypto.randomUUID(),
-        type: "deposit",
-        amount,
+        type: "withdraw",
+        amount: -amount,
+        status: "pending",
+        method: "bank",
         createdAt: new Date().toISOString(),
       });
     },

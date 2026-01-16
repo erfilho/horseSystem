@@ -20,5 +20,12 @@ export const useHorsesStore = defineStore("horses", {
     removeHorse(id: string) {
       this.horses = this.horses.filter((horse) => horse.id !== id);
     },
+
+    updateHorse(id: string, data: Omit<Horse, "id">) {
+      const index = this.horses.findIndex((h) => h.id === id);
+      if (index !== -1) {
+        this.horses[index] = { id, ...data };
+      }
+    },
   },
 });

@@ -6,7 +6,7 @@ import Sidebar from "../components/Sidebar.vue";
 
 <template>
   <div
-    class="py-2 h-full w-full overflow-hidden grid grid-cols-[240px_1fr_320px] grid-rows-1 col-span-3 gap-2 px-20"
+    class="min-h-screen w-full bg-[#050b18] text-white grid grid-cols-[220px_minmax(0,1fr)_300px] gap-4 px-10 py-4 col-span-3"
   >
     <Sidebar />
     <MainContent />

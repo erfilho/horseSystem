@@ -50,139 +50,136 @@ const selectedLang = computed(() =>
 </script>
 
 <template>
-  <div
-    class="h-full pt-4 shrink-0 w-full col-span-3 grid grid-cols-[240px_1fr_320px] grid-rows-1 border-b border-zinc-800 gap-2 px-20"
+  <header
+    class="h-full w-full shrink-0 border-b border-zinc-800 grid grid-cols-[220px_minmax(0,1fr)_300px] gap-4 px-10 col-span-3"
   >
     <!-- LOGO -->
-    <div class="flex items-center justify-center">
-      <RouterLink to="/"><img src="/test_logo.png" class="h-28" /></RouterLink>
+    <div class="flex items-center">
+      <RouterLink to="/" class="flex items-center gap-2">
+        <img src="/test_logo.png" class="h-8" alt="10Bet logo" />
+      </RouterLink>
     </div>
 
-    <!-- BUTTONS -->
-    <div class="flex items-center gap-2">
+    <!-- NAV BUTTONS -->
+    <nav class="flex items-center gap-2">
       <Button
         variant="secondary"
-        class="h-9 px-4 text-sm bg-df-bg hover:cursor-pointer text-white hover:bg-active-link gap-2"
+        class="h-9 px-4 text-xs font-semibold bg-transparent border border-transparent text-zinc-200 hover:bg-white/5 flex items-center gap-2"
       >
-        <AnFilledPlayCircle
-          class="text-white"
-          style="width: 20px; height: 20px"
-        />
+        <AnFilledPlayCircle class="w-5 h-5" />
         Live now
       </Button>
       <Button
         variant="secondary"
-        class="h-9 px-4 text-sm font-bold bg-df-bg hover:cursor-pointer text-white hover:bg-active-link gap-2 flex items-center justify-center"
+        class="h-9 px-4 text-xs font-semibold bg-transparent border border-transparent text-zinc-200 hover:bg-white/5 flex items-center gap-2"
       >
-        <BsClockHistory style="width: 20px; height: 20px" />
+        <BsClockHistory class="w-5 h-5" />
         Quick bets
       </Button>
       <Button
         variant="secondary"
-        class="h-9 px-4 text-sm font-bold bg-df-bg hover:cursor-pointer text-white hover:bg-active-link gap-2 flex items-center justify-center"
+        class="h-9 px-4 text-xs font-semibold bg-transparent border border-transparent text-zinc-200 hover:bg-white/5 flex items-center gap-2"
       >
-        <LuDices style="width: 20px; height: 20px" /> Live cassion
+        <LuDices class="w-5 h-5" />
+        Live casino
       </Button>
       <Button
         variant="secondary"
-        class="h-9 px-4 text-sm font-bold bg-df-bg hover:cursor-pointer text-white hover:bg-active-link gap-2 flex items-center justify-center"
+        class="h-9 px-4 text-xs font-semibold bg-transparent border border-transparent text-zinc-200 hover:bg-white/5 flex items-center gap-2"
       >
-        <BsCloudDrizzleFill style="width: 20px; height: 20px" /> Virtuals
+        <BsCloudDrizzleFill class="w-5 h-5" />
+        Virtuals
       </Button>
-    </div>
+    </nav>
 
-    <!-- LOGIN -->
-    <div class="flex items-center gap-2">
+    <!-- LADO DIREITO: LANG + LOGIN -->
+    <div class="flex items-center justify-end gap-2">
       <!-- LANG SELECT -->
       <Select v-model="lang">
         <SelectTrigger
-          class="border-0 bg-secondary-button text-white hover:bg-primary-button hover:cursor-pointer"
+          class="h-9 w-24 border border-white/10 bg-zinc-900 text-xs text-white hover:bg-zinc-800"
         >
           <template v-if="selectedLang">
             <div class="h-4 w-6 flex items-center justify-center">
               <img
                 :src="selectedLang.flag"
                 alt="flag"
-                class="block max-h-full max-w-full object-contain rounded-xl"
+                class="block max-h-full max-w-full object-contain rounded-sm"
               />
             </div>
             <span>{{ selectedLang.label }}</span>
           </template>
         </SelectTrigger>
 
-        <SelectContent class="border-0 bg-secondary-button">
+        <SelectContent class="border-0 bg-zinc-900 text-white">
           <SelectItem
             v-for="item in languages"
             :key="item.value"
             :value="item.value"
-            class="w-full text-white bg-secondary-button focus:bg-primary-button hover:bg-primary-button data-[state=checked]:bg-primary-button data-[state=checked]:text-white data-highlighted:bg-primary-button data-highlighted:text-white my-0.5 hover:cursor-pointer"
+            class="text-xs hover:bg-zinc-800 data-[state=checked]:bg-zinc-800"
           >
-            <div
-              class="w-full flex items-center justify-center gap-2 leading-none"
-            >
+            <div class="flex items-center gap-2">
               <div class="h-4 w-6 flex items-center justify-center">
                 <img
                   :src="item.flag"
                   alt="flag"
-                  class="block max-h-full max-w-full object-contain rounded-xl"
+                  class="block max-h-full max-w-full object-contain rounded-sm"
                 />
               </div>
-              <span class="text-sm">
-                {{ item.label }}
-              </span>
+              <span>{{ item.label }}</span>
             </div>
           </SelectItem>
         </SelectContent>
       </Select>
 
-      <!-- NON-AUTH BUTTONS -->
+      <!-- NÃO AUTENTICADO -->
       <template v-if="!isLogged">
-        <RouterLink to="/login"
-          ><Button
+        <RouterLink to="/login">
+          <Button
             variant="secondary"
-            class="h-9 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"
+            class="h-9 px-4 text-xs font-semibold bg-transparent border border-sky-500 text-sky-400 hover:bg-sky-500 hover:text-white"
           >
-            Log In
-          </Button></RouterLink
-        >
+            Log in
+          </Button>
+        </RouterLink>
 
         <RouterLink to="/register">
           <Button
             variant="secondary"
-            class="h-9 px-4 text-sm font-bold bg-action-button hover:cursor-pointer text-white hover:bg-sky-400 flex items-center justify-center"
+            class="h-9 px-4 text-xs font-semibold bg-sky-500 text-white hover:bg-sky-400"
           >
             Join now
           </Button>
         </RouterLink>
       </template>
 
-      <!-- AUTHENTICATED BUTTONS -->
+      <!-- AUTENTICADO -->
+      <template v-else>
+        <RouterLink to="/user/profile">
+          <Button
+            variant="secondary"
+            class="h-9 px-4 text-xs font-semibold bg-zinc-800 text-white hover:bg-zinc-700"
+          >
+            Profile
+          </Button>
+        </RouterLink>
 
-      <RouterLink to="/user/profile" v-if="isLogged">
         <Button
           variant="secondary"
-          class="h-9 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"
+          class="h-9 px-4 text-xs font-semibold bg-sky-500 text-white hover:bg-sky-400"
+          @click="handleLogout"
         >
-          Profile
+          Logout
         </Button>
-      </RouterLink>
+      </template>
 
-      <!-- LOGOUT BUTTON -->
-      <Button
-        v-if="isLogged"
-        variant="secondary"
-        class="h-9 text-sm font-bold bg-action-button hover:cursor-pointer text-white hover:bg-sky-500 flex items-center justify-center"
-        @click="handleLogout"
-      >
-        Logout
-      </Button>
-
+      <!-- SEARCH -->
       <Button
         variant="secondary"
-        class="h-9 px-4 text-sm font-bold bg-primary-button hover:cursor-pointer text-white hover:bg-zinc-600 flex items-center justify-center"
+        class="h-9 w-9 flex items-center justify-center bg-zinc-900 text-white hover:bg-zinc-800"
       >
-        <AnOutlinedSearch />
+        <AnOutlinedSearch class="w-4 h-4" />
       </Button>
     </div>
-  </div>
+  </header>
 </template>

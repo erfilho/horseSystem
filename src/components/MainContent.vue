@@ -1,10 +1,9 @@
 <script setup lang="ts">
+import { useBetSlipStore } from "@/stores/betSlip.store";
 import { AnFilledPlayCircle } from "@kalimahapps/vue-icons";
-
+import { ref } from "vue";
 import RaceCard from "./RaceCard.vue";
 import RacerCard from "./RacerCard.vue";
-
-import { useBetSlipStore } from "@/stores/betSlip.store";
 
 const betSlip = useBetSlipStore();
 
@@ -14,17 +13,19 @@ interface RaceCards {
   isLiveNow: boolean;
 }
 
-const tabs = [
-  { title: "Next Races", active: true },
-  { title: "Meetings", active: false },
-  { title: "Specials", active: false },
-];
+const tabs = ref([
+  { id: "next", title: "Next Races" },
+  { id: "meetings", title: "Meetings" },
+  { id: "specials", title: "Specials" },
+]);
+const activeTab = ref<"next" | "meetings" | "specials">("next");
 
-const subTabs = [
-  { title: "All Races", active: true },
-  { title: "Meetings", active: false },
-  { title: "Specials", active: false },
-];
+const subTabs = ref([
+  { id: "all", title: "All Races" },
+  { id: "meetings", title: "Meetings" },
+  { id: "specials", title: "Specials" },
+]);
+const activeSubTab = ref<"all" | "meetings" | "specials">("all");
 
 const races = [
   {
@@ -78,30 +79,17 @@ const races = [
 ];
 
 const racesTimeLine: RaceCards[] = [
-  {
-    time: "17:05",
-    local: "Vincennes",
-    isLiveNow: true,
-  },
-  {
-    time: "17:20",
-    local: "Toulouse",
-    isLiveNow: false,
-  },
-  {
-    time: "17:35",
-    local: "Vincennes",
-    isLiveNow: false,
-  },
+  { time: "17:05", local: "Vincennes", isLiveNow: true },
+  { time: "17:20", local: "Toulouse", isLiveNow: false },
+  { time: "17:35", local: "Vincennes", isLiveNow: false },
 ];
 
 function addToBetSlip(race: any) {
-  console.log(race);
   betSlip.addSelection({
     raceId: "test",
     horseId: race.horse,
     horseName: race.horse,
-    raceName: "test",
+    raceName: "17:05 Vincennes",
     shirtColor: race.color,
     bet: "win",
     oddType: "SP",
@@ -111,67 +99,60 @@ function addToBetSlip(race: any) {
 </script>
 
 <template>
-  <div class="flex flex-1 flex-col gap-2 justify-start items-center rounded-xl">
-    <div class="text-white w-full p-0 space-y-6">
-      <!-- HEADER -->
+  <main class="flex flex-col gap-4 rounded-xl">
+    <div
+      class="relative rounded-xl overflow-hidden h-64 bg-[#0b1220] border border-white/5"
+      style="
+        background-image: url('/horsess.png');
+        background-size: cover;
+        background-position: center right;
+      "
+    >
       <div
-        class="relative rounded-xl overflow-hidden p-6"
-        style="
-          background-image: url('/horsess.png');
-          background-size: 70%;
-          background-position: 100% 22%;
-          background-repeat: no-repeat;
-        "
-      >
-        <div
-          class="absolute inset-0 bg-linear-to-tr from-black/90 via-black/50 to-transparent"
-        ></div>
-        <div
-          class="absolute inset-0 bg-linear-to-r from-black/95 via-black/50 to-transparent"
-        ></div>
+        class="absolute inset-0 bg-linear-to-r from-black/90 via-black/60 to-transparent"
+      ></div>
 
-        <div class="relative z-10">
-          <div class="flex items-center justify-between w-full">
-            <div class="flex flex-col gap-2 w-2/5">
-              <h1 class="text-3xl font-semibold">Horse Racing</h1>
+      <div class="relative z-10 h-full flex flex-col justify-between p-6">
+        <!-- Título + tabs -->
+        <div class="w-1/2 space-y-3">
+          <h1 class="text-3xl font-bold tracking-tight">Horse Racing</h1>
 
-              <!-- Main races tabs -->
-              <div class="flex gap-2 mt-2">
-                <button
-                  v-for="tab in tabs"
-                  :key="tab.title"
-                  class="text-md p-2 rounded-lg font-bold hover:cursor-pointer"
-                  :class="
-                    tab.active
-                      ? 'bg-action-button hover:bg-sky-400'
-                      : 'hover:bg-action-button'
-                  "
-                >
-                  {{ tab.title }}
-                </button>
-              </div>
-              <div class="w-full border-b border-zinc-800"></div>
-            </div>
+          <div class="inline-flex bg-black/40 rounded-full p-1">
+            <button
+              v-for="tab in tabs"
+              :key="tab.id"
+              class="px-4 py-1.5 text-xs font-semibold rounded-full transition uppercase tracking-wide"
+              :class="
+                activeTab === tab.id
+                  ? 'bg-sky-500 text-white'
+                  : 'text-zinc-300 hover:bg-white/5'
+              "
+              @click="activeTab = tab.id as any"
+            >
+              {{ tab.title }}
+            </button>
           </div>
+        </div>
 
-          <!-- Sub Tabs -->
-          <div class="flex flex-row gap-2 py-2">
+        <!-- Subtabs + timeline -->
+        <div class="space-y-3">
+          <div class="inline-flex bg-black/40 rounded-full p-1">
             <button
               v-for="sub in subTabs"
-              :key="sub.title"
-              class="text-sm p-2 rounded-lg font-bold hover:cursor-pointer"
+              :key="sub.id"
+              class="px-3 py-1.5 text-[11px] font-semibold rounded-full uppercase tracking-wide"
               :class="
-                sub.active
-                  ? 'bg-filter-button text-teal-400 hover:bg-teal-800'
-                  : 'bg-secondary-button hover:bg-primary-button'
+                activeSubTab === sub.id
+                  ? 'bg-emerald-500/20 text-emerald-300'
+                  : 'text-zinc-300 hover:bg-white/5'
               "
+              @click="activeSubTab = sub.id as any"
             >
               {{ sub.title }}
             </button>
           </div>
 
-          <!-- Races Timeline -->
-          <div class="flex gap-3 overflow-x-auto py-2">
+          <div class="flex gap-3 overflow-x-auto pb-1">
             <RaceCard
               v-for="race in racesTimeLine"
               :key="race.time"
@@ -182,42 +163,42 @@ function addToBetSlip(race: any) {
           </div>
         </div>
       </div>
-
-      <!-- Race Details -->
-      <div class="bg-content-bg rounded-xl p-6 space-y-4">
-        <div class="flex justify-between items-center">
-          <div>
-            <h2 class="text-lg font-semibold">17:05 Vincennes</h2>
-            <p class="text-sm text-zinc-400">
-              1m 2f 96y / Standard / 12 Runners
-            </p>
-          </div>
-
-          <button
-            class="px-4 py-2 text-sm bg-zinc-700 rounded-lg hover:bg-zinc-600 flex items-center gap-2 h-12"
-          >
-            <AnFilledPlayCircle class="text-lg" /> Watch
-          </button>
-        </div>
-
-        <!-- Race Runners -->
-        <div class="divide-y divide-zinc-700">
-          <RacerCard
-            v-for="race in races"
-            @select="addToBetSlip(race)"
-            :key="race.horse"
-            :shirtColor="race.color"
-            :shirtNumber="race.shirtNumber"
-            :horse="race.horse"
-            :horseAge="race.horseAge"
-            :jockey="race.jockey"
-            :trainer="race.trainer"
-            :formCode="race.formCode"
-            :lastOdds="race.lastOdds"
-            :odds="race.odds"
-          />
-        </div>
-      </div>
     </div>
-  </div>
+
+    <!-- Detalhes da corrida -->
+    <section
+      class="bg-[#0b1220] rounded-xl p-5 border border-white/5 space-y-4"
+    >
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-semibold">17:05 Vincennes</h2>
+          <p class="text-xs text-zinc-400">1m 2f 96y / Standard / 12 Runners</p>
+        </div>
+
+        <button
+          class="px-4 py-2 text-xs bg-zinc-700 rounded-lg hover:bg-zinc-600 flex items-center gap-2 h-9"
+        >
+          <AnFilledPlayCircle class="text-base" />
+          Watch
+        </button>
+      </div>
+
+      <div class="divide-y divide-white/5">
+        <RacerCard
+          v-for="race in races"
+          :key="race.horse"
+          @select="addToBetSlip(race)"
+          :shirtColor="race.color"
+          :shirtNumber="race.shirtNumber"
+          :horse="race.horse"
+          :horseAge="race.horseAge"
+          :jockey="race.jockey"
+          :trainer="race.trainer"
+          :formCode="race.formCode"
+          :lastOdds="race.lastOdds"
+          :odds="race.odds"
+        />
+      </div>
+    </section>
+  </main>
 </template>
