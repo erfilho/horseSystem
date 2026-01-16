@@ -26,7 +26,7 @@ function saveProfile() {
 
 <template>
   <div
-    class="min-h-screen bg-linear-to-br from-df-bg to-content-bg p-6 col-span-3"
+    class="min-h-screen bg-linear-to-br from-[#08162f] via-[#0b1f3f] to-[#020617] p-6 col-span-3"
   >
     <div class="max-w-6xl mx-auto">
       <!-- Header -->
@@ -37,7 +37,7 @@ function saveProfile() {
         </p>
       </div>
 
-      <div class="bg-content-bg rounded-2xl shadow-xl p-6">
+      <div class="bg-[#0b1220]/90 backdrop-blur rounded-2xl shadow-xl p-6">
         <!-- Tabs -->
         <div class="flex gap-6 border-b border-gray-700 mb-8">
           <button
@@ -117,44 +117,58 @@ function saveProfile() {
         <!-- Address form -->
         <div
           v-if="activeTab === 'address'"
-          class="grid grid-cols-1 md:grid-cols-2 gap-6"
+          class="flex flex-col md:grid-cols-2 gap-6"
         >
-          <div>
-            <label class="block text-sm text-gray-400 mb-1">Country</label>
-            <input class="input" placeholder="United Kingdom" />
+          <div class="flex flex-row gap-2">
+            <div>
+              <label class="block text-sm text-gray-400 mb-1">Country</label>
+              <input
+                placeholder="United Kingdom"
+                class="input rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm text-gray-400 mb-1">City</label>
+              <input
+                class="input rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
+                placeholder="London"
+              />
+            </div>
           </div>
 
-          <div>
-            <label class="block text-sm text-gray-400 mb-1">City</label>
-            <input class="input" placeholder="London" />
-          </div>
-
-          <div class="md:col-span-2">
+          <div class="flex flex-col w-2/5">
             <label class="block text-sm text-gray-400 mb-1">Address</label>
-            <input class="input" placeholder="Street and number" />
+            <input
+              class="input rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
+              placeholder="Street and number"
+            />
           </div>
 
           <div>
             <label class="block text-sm text-gray-400 mb-1">Postal code</label>
-            <input class="input" placeholder="SW1A 1AA" />
+            <input
+              class="input rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
+              placeholder="SW1A 1AA"
+            />
           </div>
         </div>
 
         <!-- Preferences form -->
         <div v-if="activeTab === 'preferences'" class="space-y-6">
-          <div class="flex items-center justify-between">
+          <div class="flex items-center justify-start gap-2">
             <span class="text-white">Email notifications</span>
-            <input type="checkbox" class="accent-green-500" />
+            <input type="checkbox" class="toggle" />
           </div>
 
-          <div class="flex items-center justify-between">
+          <div class="flex items-center justify-start gap-2">
             <span class="text-white">SMS notifications</span>
-            <input type="checkbox" class="accent-green-500" />
+            <input type="checkbox" class="toggle" />
           </div>
 
-          <div class="flex items-center justify-between">
-            <span class="text-white">Odds format</span>
-            <select class="input">
+          <div class="flex items-center">
+            <label class="label text-white">Odds format</label>
+            <select class="input text-white bg-">
               <option>Decimal</option>
               <option>Fractional</option>
               <option>American</option>
@@ -168,7 +182,11 @@ function saveProfile() {
             <label class="block text-sm text-gray-400 mb-1"
               >Change password</label
             >
-            <input type="password" class="input" placeholder="New password" />
+            <input
+              type="password"
+              class="input rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
+              placeholder="New password"
+            />
           </div>
 
           <div>
@@ -177,12 +195,14 @@ function saveProfile() {
             </label>
             <input
               type="password"
-              class="input"
+              class="input rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
               placeholder="Confirm password"
             />
           </div>
 
-          <button class="text-red-400 hover:text-red-300">
+          <button
+            class="text-white hover:bg-red-500 rounded-lg border-red-500 bg-red-700 h-10 px-2"
+          >
             Deactivate account
           </button>
         </div>

@@ -20,8 +20,7 @@ const emit = defineEmits<{
 
 <template>
   <div
-    class="flex flex-row bg-content-bg border-t border-zinc-700
-           h-14 w-full px-2 py-1 text-white items-center"
+    class="flex flex-row border-t border-zinc-700 h-14 w-full px-2 py-1 text-white items-center"
   >
     <button
       class="flex justify-center items-center w-8 h-8 hover:bg-zinc-800 rounded"
@@ -41,7 +40,7 @@ const emit = defineEmits<{
     </div>
 
     <div class="flex flex-col items-end gap-0.5 ml-auto">
-      <p class="text-xs font-bold">{{ formatOdds(odds) }}</p>
+      <p class="text-sm font-bold">{{ formatOdds(odds) }}</p>
       <span
         class="bg-yellow-800 text-yellow-200 text-[9px] px-1 py-0.5 rounded"
       >

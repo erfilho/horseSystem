@@ -43,11 +43,9 @@ function setBetType(type: "single" | "multiple") {
 
 <template>
   <!-- sticky abaixo do header de 60px -->
-  <aside
-    class="flex flex-col items-center sticky top-[60px] h-[calc(100vh-60px)]"
-  >
+  <aside class="flex flex-col items-center sticky top-15 w-full">
     <div
-      class="w-11/12 h-full bg-[#0b1220] rounded-xl border border-white/5 p-3 flex flex-col gap-2"
+      class="w-full h-11/12 bg-content-bg rounded-xl border border-white/5 p-3 flex flex-col gap-2"
     >
       <!-- Header -->
       <div class="flex items-center justify-between px-1">
@@ -65,7 +63,7 @@ function setBetType(type: "single" | "multiple") {
       <div class="flex gap-1">
         <Button
           variant="secondary"
-          class="flex-1 text-xs font-semibold py-1.5"
+          class="flex-1 text-sm font-semibold py-1.5"
           :class="
             betSlip.betType === 'single'
               ? 'bg-sky-500 text-white'
@@ -77,7 +75,7 @@ function setBetType(type: "single" | "multiple") {
         </Button>
         <Button
           variant="secondary"
-          class="flex-1 text-xs font-semibold py-1.5"
+          class="flex-1 text-sm font-semibold py-1.5"
           :class="
             betSlip.betType === 'multiple'
               ? 'bg-sky-500 text-white'
@@ -93,25 +91,25 @@ function setBetType(type: "single" | "multiple") {
       <div class="flex gap-1 text-xs pb-1">
         <Button
           variant="secondary"
-          class="flex-1 py-1 bg-emerald-900/70 text-emerald-300 font-semibold text-[10px]"
+          class="flex-1 py-1 bg-emerald-900/70 text-emerald-300 font-semibold text-[12px]"
         >
           Multiples
         </Button>
         <Button
           variant="secondary"
-          class="flex-1 py-1 bg-zinc-800 text-zinc-200 hover:bg-zinc-700 text-[10px]"
+          class="flex-1 py-1 bg-zinc-800 text-zinc-200 hover:bg-zinc-700 text-[12px]"
         >
           Trixie
         </Button>
         <Button
           variant="secondary"
-          class="flex-1 py-1 bg-zinc-800 text-zinc-200 hover:bg-zinc-700 text-[10px]"
+          class="flex-1 py-1 bg-zinc-800 text-zinc-200 hover:bg-zinc-700 text-[12px]"
         >
           Patent
         </Button>
         <Button
           variant="secondary"
-          class="flex-1 py-1 bg-zinc-800 text-zinc-200 hover:bg-zinc-700 text-[10px]"
+          class="flex-1 py-1 bg-zinc-800 text-zinc-200 hover:bg-zinc-700 text-[12px]"
         >
           Double
         </Button>
@@ -149,7 +147,7 @@ function setBetType(type: "single" | "multiple") {
             v-for="val in [10, 5, 25, 100]"
             :key="val"
             variant="secondary"
-            class="flex-1 flex items-center justify-center gap-1 bg-zinc-800 text-zinc-100 hover:bg-zinc-700 text-[10px] py-1.5"
+            class="flex-1 flex items-center justify-center gap-1 bg-zinc-800 text-zinc-100 hover:bg-zinc-700 text-[14px] py-1.5"
             @click="addValue(val)"
           >
             <BsCurrencyEuro />
@@ -158,7 +156,7 @@ function setBetType(type: "single" | "multiple") {
         </div>
 
         <!-- Resumo -->
-        <div class="text-[10px] text-white space-y-0.5 px-1">
+        <div class="text-sm text-white space-y-0.5 px-1">
           <div class="flex justify-between">
             <span>Total odds</span>
             <span class="font-semibold">{{
@@ -178,9 +176,9 @@ function setBetType(type: "single" | "multiple") {
         <!-- Info + Place bet -->
         <div class="space-y-1 px-1">
           <div
-            class="rounded-lg bg-zinc-800 text-[10px] text-zinc-200 flex items-center gap-1 px-1.5 py-1"
+            class="rounded-lg bg-zinc-800 text-sm text-zinc-200 flex items-center gap-2 px-1.5 py-1 justify-center"
           >
-            <AnFilledInfoCircle class="text-xs" />
+            <AnFilledInfoCircle class="text-sm" />
             <p class="truncate">Some selections not combinable</p>
           </div>
 
@@ -194,7 +192,7 @@ function setBetType(type: "single" | "multiple") {
             </Button>
             <Button
               variant="secondary"
-              class="flex-1 bg-sky-500 text-white font-semibold text-[10px] hover:bg-sky-400 disabled:bg-zinc-700"
+              class="flex-1 bg-sky-500 text-white font-semibold text-[16px] hover:bg-sky-400 disabled:bg-zinc-700"
               :disabled="!betSlip.canPlaceBet"
             >
               Place bet

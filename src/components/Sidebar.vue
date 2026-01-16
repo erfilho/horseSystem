@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useAuthStore } from "@/stores/auth.store";
 import {
   AnFilledPlaySquare,
   BsGraphUp,
@@ -14,7 +15,6 @@ import {
 import { computed, type Component } from "vue";
 import { useRoute } from "vue-router";
 import LinkButton from "./LinkButton.vue";
-import { useAuthStore } from "@/stores/auth.store";
 
 const route = useRoute();
 const auth = useAuthStore();
@@ -48,36 +48,22 @@ const userLinks: NavLink[] = [
 ];
 
 const adminLinks: NavLink[] = [
-  { title: "Races register", icon: MaRacetrackHorse, url: "/admin/dashboard/races" },
+  {
+    title: "Races register",
+    icon: MaRacetrackHorse,
+    url: "/admin/dashboard/races",
+  },
   { title: "Horses register", icon: FaHorse, url: "/admin/dashboard/horses" },
 ];
 </script>
 
 <template>
-  <aside
-    class="h-full bg-[#060915] border-r border-white/5
-           flex flex-col gap-4 px-3 py-4"
-  >
-    <!-- Logo / placeholder -->
-    <div class="h-10 flex items-center px-1 mb-2">
-      <span class="text-xl font-bold tracking-tight">10<span class="text-sky-500">BET</span></span>
-    </div>
-
-    <!-- Common -->
-    <nav class="flex flex-col gap-1">
-      <LinkButton
-        v-for="link in commonLinks"
-        :key="link.url"
-        :title="link.title"
-        :icon="link.icon"
-        :url="link.url"
-        :isActive="isActive(link.url)"
-      />
-    </nav>
-
+  <aside class="h-full border- flex flex-col gap-4 px-3 py-4">
     <!-- Admin -->
     <template v-if="isAdmin">
-      <p class="mt-4 mb-1 text-[11px] uppercase tracking-wide text-zinc-500 px-2">
+      <p
+        class="mt-4 mb-1 text-[11px] uppercase tracking-wide text-zinc-500 px-2"
+      >
         Admin menu
       </p>
       <nav class="flex flex-col gap-1">
@@ -94,7 +80,9 @@ const adminLinks: NavLink[] = [
 
     <!-- User -->
     <template v-if="isLogged">
-      <p class="mt-4 mb-1 text-[11px] uppercase tracking-wide text-zinc-500 px-2">
+      <p
+        class="mt-4 mb-1 text-[11px] uppercase tracking-wide text-zinc-500 px-2"
+      >
         Menu
       </p>
       <nav class="flex flex-col gap-1">

@@ -79,7 +79,7 @@ function updateOdd(horseId: string, value: string) {
     <div class="grid grid-cols-3 gap-6">
       <!-- LEFT COLUMN: RACE DETAILS -->
       <div
-        class="col-span-1 bg-[#0f172a] border border-gray-700 rounded-xl p-4 space-y-4"
+        class="col-span-1 bg-content-bg/90 border border-gray-700 rounded-xl p-4 space-y-4"
       >
         <h3 class="font-semibold text-sm text-gray-300">Race Details</h3>
 
@@ -130,20 +130,22 @@ function updateOdd(horseId: string, value: string) {
       </div>
 
       <!-- RIGHT COLUMN: HORSES -->
-      <div class="col-span-2 bg-[#0f172a] border border-gray-700 rounded-xl">
+      <div
+        class="col-span-2 bg-content-bg/90 border border-gray-700 rounded-xl"
+      >
         <div class="px-4 py-3 border-b border-gray-700">
           <h3 class="font-semibold text-sm">Registered Horses</h3>
         </div>
 
         <div class="max-h-[360px] overflow-auto">
           <table class="w-full text-sm">
-            <thead class="sticky top-0 bg-[#0f172a]">
+            <thead class="sticky top-0 bg-content-bg">
               <tr class="text-gray-400 border-b border-gray-700">
                 <th class="p-2 text-center"></th>
                 <th class="p-2 text-left">Name</th>
-                <th class="p-2">Age</th>
-                <th class="p-2">Breed</th>
-                <th class="p-2">Trainer</th>
+                <th class="p-2 text-left">Age</th>
+                <th class="p-2 text-left">Breed</th>
+                <th class="p-2 text-left">Trainer</th>
                 <th class="p-2 text-center">Odd</th>
               </tr>
             </thead>

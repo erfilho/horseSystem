@@ -101,15 +101,15 @@ function addToBetSlip(race: any) {
 <template>
   <main class="flex flex-col gap-4 rounded-xl">
     <div
-      class="relative rounded-xl overflow-hidden h-64 bg-[#0b1220] border border-white/5"
+      class="relative rounded-xl overflow-hidden h-64 border border-white/5 p-0 m-0"
       style="
         background-image: url('/horsess.png');
         background-size: cover;
-        background-position: center right;
+        background-position: 10%;
       "
     >
       <div
-        class="absolute inset-0 bg-linear-to-r from-black/90 via-black/60 to-transparent"
+        class="absolute inset-0 p-0 m-0 bg-linear-to-r from-black/90 via-black/60 to-transparent"
       ></div>
 
       <div class="relative z-10 h-full flex flex-col justify-between p-6">
@@ -135,6 +135,7 @@ function addToBetSlip(race: any) {
         </div>
 
         <!-- Subtabs + timeline -->
+
         <div class="space-y-3">
           <div class="inline-flex bg-black/40 rounded-full p-1">
             <button
@@ -167,7 +168,7 @@ function addToBetSlip(race: any) {
 
     <!-- Detalhes da corrida -->
     <section
-      class="bg-[#0b1220] rounded-xl p-5 border border-white/5 space-y-4"
+      class="bg-content-bg rounded-xl p-5 border border-white/5 space-y-4"
     >
       <div class="flex items-center justify-between">
         <div>

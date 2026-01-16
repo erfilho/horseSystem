@@ -27,7 +27,9 @@ const handleDebit = () => {
 </script>
 
 <template>
-  <div class="min-h-screen w-full bg-[#050b18] text-white col-span-3">
+  <div
+    class="min-h-screen w-full bg-linear-to-br from-[#08162f] via-[#0b1f3f] to-[#020617] text-white col-span-3"
+  >
     <!-- CONTENT -->
     <div class="max-w-7xl mx-auto px-10 py-10 space-y-10">
       <!-- TABS -->
@@ -43,7 +45,7 @@ const handleDebit = () => {
       <div class="grid grid-cols-12 gap-6">
         <!-- BALANCE OVERVIEW -->
         <div
-          class="col-span-4 bg-content-bg/80 backdrop-blur rounded-2xl p-6 border border-white/10"
+          class="col-span-4 bg-[#0b1220]/90 backdrop-blur rounded-2xl p-6 border border-white/10"
         >
           <h2 class="text-sm text-zinc-400 mb-4">Balance Overview</h2>
 
@@ -74,7 +76,7 @@ const handleDebit = () => {
 
         <!-- DEPOSIT -->
         <div
-          class="col-span-4 bg-content-bg/80 backdrop-blur rounded-2xl p-6 border border-white/10"
+          class="col-span-4 bg-[#0b1220]/90 backdrop-blur rounded-2xl p-6 border border-white/10"
         >
           <h2 class="text-sm text-zinc-400 mb-4">Deposit Funds</h2>
 
@@ -117,7 +119,7 @@ const handleDebit = () => {
 
         <!-- WITHDRAW -->
         <div
-          class="col-span-4 bg-content-bg/80 backdrop-blur rounded-2xl p-6 border border-white/10"
+          class="col-span-4 bg-[#0b1220]/90 backdrop-blur rounded-2xl p-6 border border-white/10"
         >
           <h2 class="text-sm text-zinc-400 mb-4">Withdraw Funds</h2>
 
@@ -155,7 +157,7 @@ const handleDebit = () => {
 
       <!-- TRANSACTIONS -->
       <div
-        class="bg-content-bg/80 backdrop-blur rounded-2xl p-6 border border-white/10"
+        class="bg-[#0b1220]/90 backdrop-blur rounded-2xl p-6 border border-white/10"
       >
         <div class="flex justify-between items-center mb-4">
           <h2 class="text-lg font-semibold">Transaction History</h2>

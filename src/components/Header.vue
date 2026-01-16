@@ -54,9 +54,9 @@ const selectedLang = computed(() =>
     class="h-full w-full shrink-0 border-b border-zinc-800 grid grid-cols-[220px_minmax(0,1fr)_300px] gap-4 px-10 col-span-3"
   >
     <!-- LOGO -->
-    <div class="flex items-center">
+    <div class="flex items-center justify-center">
       <RouterLink to="/" class="flex items-center gap-2">
-        <img src="/test_logo.png" class="h-8" alt="10Bet logo" />
+        <img src="/10xbet.png" class="h-8" alt="10Bet logo" />
       </RouterLink>
     </div>
 
@@ -64,28 +64,28 @@ const selectedLang = computed(() =>
     <nav class="flex items-center gap-2">
       <Button
         variant="secondary"
-        class="h-9 px-4 text-xs font-semibold bg-transparent border border-transparent text-zinc-200 hover:bg-white/5 flex items-center gap-2"
+        class="h-9 px-4 text-sm font-semibold bg-transparent border border-transparent text-zinc-200 hover:bg-white/5 flex items-center gap-2"
       >
         <AnFilledPlayCircle class="w-5 h-5" />
         Live now
       </Button>
       <Button
         variant="secondary"
-        class="h-9 px-4 text-xs font-semibold bg-transparent border border-transparent text-zinc-200 hover:bg-white/5 flex items-center gap-2"
+        class="h-9 px-4 text-sm font-semibold bg-transparent border border-transparent text-zinc-200 hover:bg-white/5 flex items-center gap-2"
       >
         <BsClockHistory class="w-5 h-5" />
         Quick bets
       </Button>
       <Button
         variant="secondary"
-        class="h-9 px-4 text-xs font-semibold bg-transparent border border-transparent text-zinc-200 hover:bg-white/5 flex items-center gap-2"
+        class="h-9 px-4 text-sm font-semibold bg-transparent border border-transparent text-zinc-200 hover:bg-white/5 flex items-center gap-2"
       >
         <LuDices class="w-5 h-5" />
         Live casino
       </Button>
       <Button
         variant="secondary"
-        class="h-9 px-4 text-xs font-semibold bg-transparent border border-transparent text-zinc-200 hover:bg-white/5 flex items-center gap-2"
+        class="h-9 px-4 text-sm font-semibold bg-transparent border border-transparent text-zinc-200 hover:bg-white/5 flex items-center gap-2"
       >
         <BsCloudDrizzleFill class="w-5 h-5" />
         Virtuals
@@ -97,7 +97,7 @@ const selectedLang = computed(() =>
       <!-- LANG SELECT -->
       <Select v-model="lang">
         <SelectTrigger
-          class="h-9 w-24 border border-white/10 bg-zinc-900 text-xs text-white hover:bg-zinc-800"
+          class="h-9 w-24 border border-white/10 bg-zinc-900 text-sm text-white hover:bg-zinc-800"
         >
           <template v-if="selectedLang">
             <div class="h-4 w-6 flex items-center justify-center">
@@ -116,7 +116,7 @@ const selectedLang = computed(() =>
             v-for="item in languages"
             :key="item.value"
             :value="item.value"
-            class="text-xs hover:bg-zinc-800 data-[state=checked]:bg-zinc-800"
+            class="text-sm hover:bg-zinc-800 data-[state=checked]:bg-zinc-800"
           >
             <div class="flex items-center gap-2">
               <div class="h-4 w-6 flex items-center justify-center">
@@ -137,7 +137,7 @@ const selectedLang = computed(() =>
         <RouterLink to="/login">
           <Button
             variant="secondary"
-            class="h-9 px-4 text-xs font-semibold bg-transparent border border-sky-500 text-sky-400 hover:bg-sky-500 hover:text-white"
+            class="h-9 px-4 text-sm font-semibold bg-transparent border border-sky-500 text-sky-400 hover:bg-sky-500 hover:text-white"
           >
             Log in
           </Button>
@@ -146,7 +146,7 @@ const selectedLang = computed(() =>
         <RouterLink to="/register">
           <Button
             variant="secondary"
-            class="h-9 px-4 text-xs font-semibold bg-sky-500 text-white hover:bg-sky-400"
+            class="h-9 px-4 text-sm font-semibold bg-sky-500 text-white hover:bg-sky-400"
           >
             Join now
           </Button>
@@ -158,7 +158,7 @@ const selectedLang = computed(() =>
         <RouterLink to="/user/profile">
           <Button
             variant="secondary"
-            class="h-9 px-4 text-xs font-semibold bg-zinc-800 text-white hover:bg-zinc-700"
+            class="h-9 px-4 text-sm font-semibold bg-zinc-800 text-white hover:bg-zinc-700"
           >
             Profile
           </Button>
@@ -166,7 +166,7 @@ const selectedLang = computed(() =>
 
         <Button
           variant="secondary"
-          class="h-9 px-4 text-xs font-semibold bg-sky-500 text-white hover:bg-sky-400"
+          class="h-9 px-4 text-sm font-semibold bg-sky-500 text-white hover:bg-sky-400"
           @click="handleLogout"
         >
           Logout
