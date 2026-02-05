@@ -2,73 +2,104 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
-  SidebarInset,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarProvider,
-  SidebarRail,
-  SidebarTrigger,
-} from '@/components/ui/sidebar'
+} from "@/components/ui/sidebar";
+
+import {
+  Balloon,
+  Flame,
+  Gamepad2,
+  Gift,
+  Home,
+  PlayCircle,
+  ShoppingBasket,
+  Swords,
+  Trophy,
+} from "lucide-vue-next";
+
+const mainItems = [
+  { title: "Home", icon: Home },
+  { title: "Rewards", icon: Gift },
+  { title: "In-Play", icon: PlayCircle },
+  { title: "Acca Builder", icon: Trophy, badge: "12" },
+];
+
+const sportsItems = [
+  { title: "Soccer", icon: Balloon },
+  { title: "Basketball", icon: ShoppingBasket },
+  { title: "Boxing", icon: Swords },
+  { title: "E-Sport", icon: Gamepad2 },
+  { title: "Horse Racing", icon: Flame, active: true },
+];
 </script>
 
 <template>
-  <SidebarProvider>
-    <Sidebar>
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg">
-              <div class="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <GalleryVerticalEnd class="size-4" />
-              </div>
-              <div class="grid flex-1 text-left text-sm leading-tight">
-                <span class="truncate font-semibold">Acme Inc</span>
-                <span class="truncate text-xs">Enterprise</span>
-              </div>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarHeader>
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Platform</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton as-child>
-                  <a href="#">
-                    <Home />
-                    <span>Home</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-      <SidebarFooter />
-      <SidebarRail />
-    </Sidebar>
-    <SidebarInset>
-      <header class="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-        <div class="flex items-center gap-2 px-4">
-          <SidebarTrigger class="-ml-1" />
-        </div>
-      </header>
-      <div class="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-          <div class="aspect-video rounded-xl bg-muted/50" />
-          <div class="aspect-video rounded-xl bg-muted/50" />
-          <div class="aspect-video rounded-xl bg-muted/50" />
-        </div>
-        <div class="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
-      </div>
-    </SidebarInset>
-  </SidebarProvider>
+  <Sidebar class="bg-[#12171d] border-r border-white/5" variant="sidebar">
+    <SidebarContent class="px-2 py-4">
+      <!-- MAIN -->
+      <SidebarGroup>
+        <SidebarGroupLabel
+          class="text-xs text-white/40 uppercase tracking-wide px-3 mb-2"
+        >
+          Application
+        </SidebarGroupLabel>
+
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuItem v-for="item in mainItems" :key="item.title">
+              <SidebarMenuButton
+                class="h-10 gap-3 rounded-md px-3 text-sm text-white/80 hover:bg-white/5"
+              >
+                <component :is="item.icon" class="h-4 w-4 text-white/60" />
+                <span>{{ item.title }}</span>
+
+                <span
+                  v-if="item.badge"
+                  class="ml-auto text-[10px] px-2 py-0.5 rounded bg-green-500/20 text-green-400"
+                >
+                  {{ item.badge }}
+                </span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+
+      <!-- SPORTS -->
+      <SidebarGroup class="mt-6">
+        <SidebarGroupLabel
+          class="text-xs text-white/40 uppercase tracking-wide px-3 mb-2"
+        >
+          Sports
+        </SidebarGroupLabel>
+
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuItem v-for="item in sportsItems" :key="item.title">
+              <SidebarMenuButton
+                :class="[
+                  'h-10 gap-3 rounded-md px-3 text-sm',
+                  item.active
+                    ? 'bg-white/10 text-white'
+                    : 'text-white/70 hover:bg-white/5',
+                ]"
+              >
+                <component
+                  :is="item.icon"
+                  class="h-4 w-4"
+                  :class="item.active ? 'text-cyan-400' : 'text-white/50'"
+                />
+                <span>{{ item.title }}</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarContent>
+  </Sidebar>
 </template>

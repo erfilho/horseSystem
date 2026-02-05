@@ -45,13 +45,13 @@ const languages = [
 ];
 
 const selectedLang = computed(() =>
-  languages.find((l) => l.value === lang.value)
+  languages.find((l) => l.value === lang.value),
 );
 </script>
 
 <template>
   <header
-    class="h-full w-full shrink-0 border-b border-zinc-800 grid grid-cols-[220px_minmax(0,1fr)_300px] gap-4 px-10 col-span-3"
+    class="sticky top-0 z-50 h-full w-full grid grid-cols-[240px_1fr_340px] col-span-3 bg-bg-surface border-b border-white/5"
   >
     <!-- LOGO -->
     <div class="flex items-center justify-center">
@@ -93,7 +93,7 @@ const selectedLang = computed(() =>
     </nav>
 
     <!-- LADO DIREITO: LANG + LOGIN -->
-    <div class="flex items-center justify-end gap-2">
+    <div class="flex items-center justify-start gap-2">
       <!-- LANG SELECT -->
       <Select v-model="lang">
         <SelectTrigger
