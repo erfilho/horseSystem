@@ -42,30 +42,32 @@ const sportsLinks: NavLink[] = [
 ];
 
 const userLinks: NavLink[] = [
-  { title: "Wallet", icon: CoWallet, url: "/user/wallet" },
-  { title: "My bets", icon: LuReceipt, url: "/user/my-bets" },
-  { title: "Results", icon: BsGraphUp, url: "/user/results" },
+  { title: "Carteira", icon: CoWallet, url: "/user/wallet" },
+  { title: "Minhas apostas", icon: LuReceipt, url: "/user/my-bets" },
+  { title: "Resultados", icon: BsGraphUp, url: "/user/results" },
 ];
 
 const adminLinks: NavLink[] = [
   {
-    title: "Races register",
+    title: "Cadastro de corridas",
     icon: MaRacetrackHorse,
     url: "/admin/dashboard/races",
   },
-  { title: "Horses register", icon: FaHorse, url: "/admin/dashboard/horses" },
+  {
+    title: "Cadastro de cavalos",
+    icon: FaHorse,
+    url: "/admin/dashboard/horses",
+  },
 ];
 </script>
 
 <template>
-  <aside
-    class="h-full overflow-y-auto border-r border-white/5 flex flex-col gap-4 px-2 py-3"
-  >
+  <aside class="h-full overflow-y-auto flex flex-col gap-4 px-2 py-4 pl-12">
     <template v-if="isAdmin">
       <p
         class="mt-4 mb-1 text-[11px] uppercase tracking-wide text-zinc-500 px-2"
       >
-        Admin menu
+        Menu Administrador
       </p>
       <nav class="flex flex-col gap-1">
         <LinkButton
@@ -94,7 +96,7 @@ const adminLinks: NavLink[] = [
     </template>
 
     <p class="mt-4 mb-1 text-[11px] uppercase tracking-wide text-zinc-500 px-2">
-      Sports
+      Esportes
     </p>
     <nav class="flex flex-col gap-1">
       <LinkButton
@@ -105,7 +107,7 @@ const adminLinks: NavLink[] = [
       />
     </nav>
 
-    <p class="mb-1 text-[11px] uppercase text-zinc-500 px-2">Quick</p>
+    <p class="mb-1 text-[11px] uppercase text-zinc-500 px-2">Atalhos</p>
     <nav class="flex flex-col gap-1">
       <LinkButton
         v-for="link in commonLinks"

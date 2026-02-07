@@ -7,7 +7,7 @@ import MainContent from "../components/MainContent.vue";
 
 <template>
   <div
-    class="min-h-screen w-full text-white grid grid-cols-[240px_1fr_340px] gap-4 bg-bg-main"
+    class="min-h-screen w-full text-white grid grid-cols-[240px_1fr_340px] bg-bg-main"
   >
     <aside class="h-full overflow-y-auto">
       <Sidebar />

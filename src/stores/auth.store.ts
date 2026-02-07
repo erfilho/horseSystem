@@ -1,5 +1,7 @@
+import router from "@/routes/router";
 import type { User } from "@/types/User";
 import { defineStore } from "pinia";
+import { useBetSlipStore } from "./betSlip.store";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
@@ -13,7 +15,7 @@ export const useAuthStore = defineStore("auth", {
 
   actions: {
     login(email: string, password: string) {
-      this.user = {
+      const user: User = {
         id: "1",
         name: "Demo User",
         email,
@@ -21,19 +23,24 @@ export const useAuthStore = defineStore("auth", {
         role: "admin",
       };
 
-      localStorage.setItem("auth", JSON.stringify(this.user));
+      this.user = user;
+      localStorage.setItem("auth", JSON.stringify(user));
     },
 
     logout() {
       this.user = null;
       localStorage.removeItem("auth");
+
+      const betSlip = useBetSlipStore();
+      betSlip.clear;
+
+      router.replace("/");
     },
 
     restoreSession() {
       const data = localStorage.getItem("auth");
       if (data) {
-        const parsed = JSON.parse(data);
-        this.user = parsed.user;
+        this.user = JSON.parse(data);
       }
     },
   },
