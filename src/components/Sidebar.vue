@@ -64,9 +64,7 @@ const adminLinks: NavLink[] = [
 <template>
   <aside class="h-full overflow-y-auto flex flex-col gap-4 px-2 py-4 pl-12">
     <template v-if="isAdmin">
-      <p
-        class="mt-4 mb-1 text-[11px] uppercase tracking-wide text-zinc-500 px-2"
-      >
+      <p class="mb-1 text-[11px] uppercase tracking-wide text-zinc-500 px-2">
         Menu Administrador
       </p>
       <nav class="flex flex-col gap-1">

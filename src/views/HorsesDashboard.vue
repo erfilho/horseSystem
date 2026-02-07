@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Sidebar from "@/components/Sidebar.vue";
 import { useHorsesStore } from "@/stores/horses.store";
 import type { Horse } from "@/types/Horse";
 import { ref } from "vue";
@@ -58,19 +59,23 @@ function editHorse(horse: Horse) {
 
 <template>
   <div
-    class="col-span-3 flex justify-center bg-linear-to-br from-[#08162f] via-[#0b1f3f] to-[#020617]"
+    class="min-h-screen w-full text-white grid grid-cols-[240px_1fr] bg-bg-main"
   >
-    <div class="p-6 text-white space-y-6 w-4/5">
+    <aside class="h-full overflow-y-auto">
+      <Sidebar />
+    </aside>
+
+    <div class="px-6 py-4 text-white space-y-6 w-4/5">
       <!-- PAGE TITLE -->
       <div>
-        <h1 class="text-2xl font-bold">HORSE REGISTRATION</h1>
+        <h1 class="text-2xl font-bold">Cadastro de cavalos</h1>
       </div>
 
       <!-- MAIN GRID -->
       <div class="grid grid-cols-3 gap-6">
         <!-- LEFT: FORM -->
         <div
-          class="col-span-1 bg-[#0b1220]/90 backdrop-blur0 rounded-xl p-5 border border-gray-700 space-y-4"
+          class="col-span-1 bg-bg-surface rounded-xl p-5 border border-gray-700 space-y-4"
         >
           <h2 class="font-semibold">Add New Horse</h2>
 
@@ -109,7 +114,7 @@ function editHorse(horse: Horse) {
 
         <!-- RIGHT: TABLE -->
         <div
-          class="col-span-2 bg-[#0b1220]/90 backdrop-blur rounded-xl p-5 border border-gray-700"
+          class="col-span-2 bg-bg-surface rounded-xl p-5 border border-gray-700"
         >
           <div class="flex items-center justify-between mb-4">
             <h2 class="font-semibold">Registered Horses</h2>
@@ -129,7 +134,7 @@ function editHorse(horse: Horse) {
                 <th class="w-20 text-center">Age</th>
                 <th class="w-32 text-left">Breed</th>
                 <th class="w-40 text-left">Trainer</th>
-                <th class="w-32 text-right px-5">Actions</th>
+                <th class="w-32 text-right">Actions</th>
               </tr>
             </thead>
 
@@ -145,20 +150,22 @@ function editHorse(horse: Horse) {
                 <td class="w-32">{{ horse.breed }}</td>
                 <td class="w-40">{{ horse.trainer_name }}</td>
 
-                <td class="w-32 flex text-right justify-end gap-2 py-2">
-                  <button
-                    @click="editHorse(horse)"
-                    class="p-1 rounded bg-gray-700 hover:bg-gray-600"
-                    title="Edit horse"
-                  >
-                    ✎
-                  </button>
-                  <button
-                    @click="removeHorse(horse.id)"
-                    class="p-1 rounded bg-red-600 hover:bg-red-500"
-                  >
-                    🗑
-                  </button>
+                <td class="w-32">
+                  <div class="flex flex-row justify-end gap-2 w-full py-1">
+                    <button
+                      @click="editHorse(horse)"
+                      class="p-1 rounded-lg bg-gray-700 hover:bg-gray-600"
+                      title="Edit horse"
+                    >
+                      ✎
+                    </button>
+                    <button
+                      @click="removeHorse(horse.id)"
+                      class="p-1 rounded-lg bg-red-600 hover:bg-red-500"
+                    >
+                      🗑
+                    </button>
+                  </div>
                 </td>
               </tr>
 

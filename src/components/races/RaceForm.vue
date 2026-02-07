@@ -3,6 +3,7 @@
 import type { Horse } from "@/types/Horse";
 import type { RaceStatus } from "@/types/RaceStatus";
 import { computed } from "vue";
+import Button from "../ui/button/Button.vue";
 
 type RaceHorseForm = {
   horseId: string;
@@ -69,9 +70,9 @@ function updateOdd(horseId: string, value: string) {
   <div class="w-full max-w-5xl text-white">
     <!-- HEADER -->
     <div class="mb-6">
-      <h2 class="text-xl font-semibold">Add New Race</h2>
+      <h2 class="text-xl font-semibold">Cadastrar nova corrida</h2>
       <p class="text-sm text-gray-400">
-        Configure race details and assign participating horses.
+        Configure os detalhes da corrida e adicione os cavalos participantes.
       </p>
     </div>
 
@@ -81,11 +82,11 @@ function updateOdd(horseId: string, value: string) {
       <div
         class="col-span-1 bg-content-bg/90 border border-gray-700 rounded-xl p-4 space-y-4"
       >
-        <h3 class="font-semibold text-sm text-gray-300">Race Details</h3>
+        <h3 class="font-semibold text-sm text-gray-300">Detalhes</h3>
 
         <!-- Race name -->
         <div class="flex flex-col">
-          <label class="text-xs text-gray-400 mb-1">Race name</label>
+          <label class="text-xs text-gray-400 mb-1">Local da corrida</label>
           <input
             v-model="form.name"
             class="rounded-lg bg-df-bg border border-gray-700 px-3 py-2 text-sm focus:ring-1 focus:ring-blue-500 outline-none"
@@ -95,7 +96,9 @@ function updateOdd(horseId: string, value: string) {
         <!-- Times -->
         <div class="flex gap-3">
           <div class="flex-1">
-            <label class="text-xs text-gray-400 mb-1 block">Start time</label>
+            <label class="text-xs text-gray-400 mb-1 block"
+              >Horário de início</label
+            >
             <input
               v-model="form.startTime"
               class="w-full rounded-lg bg-df-bg border border-gray-700 px-3 py-2 text-sm"
@@ -103,7 +106,9 @@ function updateOdd(horseId: string, value: string) {
           </div>
 
           <div class="flex-1">
-            <label class="text-xs text-gray-400 mb-1 block">Finish time</label>
+            <label class="text-xs text-gray-400 mb-1 block"
+              >Horário de término</label
+            >
             <input
               v-model="form.finishTime"
               class="w-full rounded-lg bg-df-bg border border-gray-700 px-3 py-2 text-sm"
@@ -113,7 +118,7 @@ function updateOdd(horseId: string, value: string) {
 
         <!-- Status -->
         <div>
-          <label class="text-xs text-gray-400 mb-1 block">Race status</label>
+          <label class="text-xs text-gray-400 mb-1 block">Status</label>
           <select
             v-model="form.status"
             class="w-full rounded-lg bg-df-bg border border-gray-700 px-3 py-2 text-sm focus:ring-1 focus:ring-blue-500 outline-none"
@@ -134,18 +139,18 @@ function updateOdd(horseId: string, value: string) {
         class="col-span-2 bg-content-bg/90 border border-gray-700 rounded-xl"
       >
         <div class="px-4 py-3 border-b border-gray-700">
-          <h3 class="font-semibold text-sm">Registered Horses</h3>
+          <h3 class="font-semibold text-sm">Cavalos cadastrados</h3>
         </div>
 
         <div class="max-h-[360px] overflow-auto">
           <table class="w-full text-sm">
             <thead class="sticky top-0 bg-content-bg">
               <tr class="text-gray-400 border-b border-gray-700">
-                <th class="p-2 text-center"></th>
-                <th class="p-2 text-left">Name</th>
-                <th class="p-2 text-left">Age</th>
-                <th class="p-2 text-left">Breed</th>
-                <th class="p-2 text-left">Trainer</th>
+                <th class="p-2 text-center">#</th>
+                <th class="p-2 text-left">Nome</th>
+                <th class="p-2 text-left">Idade</th>
+                <th class="p-2 text-left">Raça</th>
+                <th class="p-2 text-left">Treinador</th>
                 <th class="p-2 text-center">Odd</th>
               </tr>
             </thead>
@@ -179,7 +184,7 @@ function updateOdd(horseId: string, value: string) {
                     @input="
                       updateOdd(
                         horse.id,
-                        ($event.target as HTMLInputElement).value
+                        ($event.target as HTMLInputElement).value,
                       )
                     "
                   />
@@ -188,7 +193,7 @@ function updateOdd(horseId: string, value: string) {
 
               <tr v-if="horses.length === 0">
                 <td colspan="6" class="text-center py-6 text-gray-400">
-                  No horses registered
+                  Sem cavalos cadastrados
                 </td>
               </tr>
             </tbody>
@@ -199,19 +204,21 @@ function updateOdd(horseId: string, value: string) {
 
     <!-- FOOTER ACTIONS -->
     <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-gray-700">
-      <button
+      <Button
+        variant="secondary"
         class="px-4 py-2 rounded-lg border border-gray-600 hover:bg-gray-700 transition"
         @click="$emit('cancel')"
       >
-        Cancel
-      </button>
+        Cancelar
+      </Button>
 
-      <button
+      <Button
+        variant="secondary"
         class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 transition"
         @click="$emit('submit')"
       >
-        Save race
-      </button>
+        Salvar corrida
+      </Button>
     </div>
   </div>
 </template>
