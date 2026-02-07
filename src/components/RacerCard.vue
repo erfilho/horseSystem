@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from "@/components/ui/button";
 import { useBetSlipStore } from "@/stores/betSlip.store";
 import formatOdds from "@/utils/formatOdds";
 import { BxSolidTShirt } from "@kalimahapps/vue-icons";
@@ -19,7 +20,7 @@ const props = defineProps<{
 const betSlip = useBetSlipStore();
 
 const isSelected = computed(() =>
-  betSlip.selections.some((s) => s.horseId === props.horse)
+  betSlip.selections.some((s) => s.horseId === props.horse),
 );
 
 const emit = defineEmits<{
@@ -28,41 +29,44 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="flex flex-col justify-start iitems-center gap-2 py-4">
+  <div class="flex flex-col justify-start gap-2 py-4">
+    <!-- Main content -->
     <div class="flex items-center gap-4 justify-between w-full">
       <div class="flex flex-row items-center gap-3">
         <div
-          class="w-8 h-8 rounded flex items-center justify-center text-sm font-bold"
+          class="w-16 h-16 rounded flex items-center justify-center font-bold"
         >
-          <p :class="[`text-4xl`, shirtColor]"><BxSolidTShirt /></p>
+          <p :class="[`text-5xl`, shirtColor]"><BxSolidTShirt /></p>
         </div>
 
         <div>
-          <p class="font-medium">{{ shirtNumber }}. {{ horse }}</p>
-          <p class="text-xs text-zinc-400">
-            J: {{ jockey }} | T: {{ trainer }}
-          </p>
+          <p class="font-medium text-lg">{{ shirtNumber }}. {{ horse }}</p>
+          <p class="text-white/60">J: {{ jockey }} | T: {{ trainer }}</p>
         </div>
       </div>
 
-      <button
-        class="px-4 py-2 rounded-lg bg-zinc-700 hover:bg-green-600 transition text-sm font-semibold"
+      <Button
+        variant="outline"
+        size="lg"
+        class="h-14 w-24 bg-white text-black text-lg font-semibold rounded-xl"
         :disabled="isSelected"
         @click="emit('select', horse)"
       >
         {{ formatOdds(odds) }}
-      </button>
+      </Button>
     </div>
 
+    <!-- Footer infos. -->
     <div class="flex items-center flex-row justify-between gap-2">
       <div class="flex flex-row items-center justify-start gap-2">
         <span
-          class="rounded-xl bg-primary-button px-2 flex items-center text-sm"
+          class="rounded-xl bg-primary-button px-2 py-1 text-sm font-medium"
         >
           Form: {{ formCode }}
         </span>
+
         <span
-          class="rounded-xl bg-primary-button px-2 flex items-center text-sm"
+          class="rounded-xl bg-primary-button px-2 py-1 text-sm font-medium"
         >
           Age: {{ horseAge }}</span
         >

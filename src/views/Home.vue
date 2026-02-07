@@ -1,16 +1,24 @@
 <!-- Home.vue (layout principal atualizado) -->
 <script setup>
+import Sidebar from "@/components/Sidebar.vue";
 import BetSlip from "../components/BetSlip.vue";
 import MainContent from "../components/MainContent.vue";
-import Sidebar from "../components/Sidebar.vue";
 </script>
 
 <template>
   <div
-    class="min-h-screen w-full text-white grid grid-cols-[220px_1fr_340px] lg:grid-cols-[220px_minmax(0,1fr)_320px] gap-4 px-4 py-6 col-span-3 bg-linear-to-br from-gray-900 via-black to-blue-900/20"
+    class="min-h-screen w-full text-white grid grid-cols-[240px_1fr_340px] bg-bg-main"
   >
-    <Sidebar />
-    <MainContent />
-    <BetSlip />
+    <aside class="h-full overflow-y-auto">
+      <Sidebar />
+    </aside>
+
+    <main class="h-full overflow-y-auto">
+      <MainContent />
+    </main>
+
+    <aside class="h-full">
+      <BetSlip />
+    </aside>
   </div>
 </template>

@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import Sidebar from "@/components/Sidebar.vue";
 import { ref } from "vue";
 
-type Tab = "profile" | "address" | "preferences" | "account";
+type Tab = "perfil" | "endereço" | "preferências" | "conta";
 
-const tabs: Tab[] = ["profile", "address", "preferences", "account"];
+const tabs: Tab[] = ["perfil", "endereço", "preferências", "conta"];
 
-const activeTab = ref("profile");
+const activeTab = ref("perfil");
 
 const firstName = ref("");
 const lastName = ref("");
@@ -26,18 +27,22 @@ function saveProfile() {
 
 <template>
   <div
-    class="min-h-screen bg-linear-to-br from-[#08162f] via-[#0b1f3f] to-[#020617] p-6 col-span-3"
+    class="min-h-screen w-full text-white grid grid-cols-[240px_1fr] bg-bg-main"
   >
-    <div class="max-w-6xl mx-auto">
+    <aside class="h-full overflow-y-auto">
+      <Sidebar />
+    </aside>
+
+    <div class="max-w-7xl w-6xl mx-auto py-4">
       <!-- Header -->
       <div class="mb-8">
-        <h1 class="text-2xl font-bold text-white">Account Settings</h1>
-        <p class="text-sm text-gray-400">
-          Manage your personal information and preferences
+        <h1 class="text-2xl font-bold text-white">Configurações do perfil</h1>
+        <p class="text-gray-400">
+          Edite suas informações pessoais e suas preferências
         </p>
       </div>
 
-      <div class="bg-[#0b1220]/90 backdrop-blur rounded-2xl shadow-xl p-6">
+      <div class="bg-bg-surface backdrop-blur rounded-2xl shadow-xl p-6">
         <!-- Tabs -->
         <div class="flex gap-6 border-b border-gray-700 mb-8">
           <button
@@ -57,25 +62,25 @@ function saveProfile() {
 
         <!-- Profile Form -->
         <div
-          v-if="activeTab === 'profile'"
+          v-if="activeTab === 'perfil'"
           class="grid grid-cols-1 md:grid-cols-2 gap-6"
         >
           <div>
-            <label class="block text-sm text-gray-400 mb-1"> First name </label>
+            <label class="block text-sm text-gray-400 mb-1"> Nome </label>
             <input
               v-model="firstName"
               type="text"
-              placeholder="First name (as on ID)"
+              placeholder="Nome"
               class="w-full rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
             />
           </div>
 
           <div>
-            <label class="block text-sm text-gray-400 mb-1"> Last name </label>
+            <label class="block text-sm text-gray-400 mb-1"> Sobrenome </label>
             <input
               v-model="lastName"
               type="text"
-              placeholder="Last name (as on ID)"
+              placeholder="Sobrenome"
               class="w-full rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
             />
           </div>
@@ -85,14 +90,14 @@ function saveProfile() {
             <input
               v-model="email"
               type="email"
-              placeholder="Enter a valid email address"
+              placeholder="Coloque um email válido"
               class="w-full rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
             />
           </div>
 
           <div>
             <label class="block text-sm text-gray-400 mb-1">
-              Date of birth
+              Data de nascimento
             </label>
             <input
               v-model="birthDate"
@@ -102,13 +107,11 @@ function saveProfile() {
           </div>
 
           <div>
-            <label class="block text-sm text-gray-400 mb-1">
-              Phone number
-            </label>
+            <label class="block text-sm text-gray-400 mb-1"> Celular </label>
             <input
               v-model="phone"
               type="tel"
-              placeholder="+44 XXXXXXXX"
+              placeholder="+55 (XX) X XXXX-XXXX"
               class="w-full rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
             />
           </div>
@@ -116,94 +119,102 @@ function saveProfile() {
 
         <!-- Address form -->
         <div
-          v-if="activeTab === 'address'"
+          v-if="activeTab === 'endereço'"
           class="flex flex-col md:grid-cols-2 gap-6"
         >
           <div class="flex flex-row gap-2">
             <div>
-              <label class="block text-sm text-gray-400 mb-1">Country</label>
+              <label class="block text-sm text-gray-400 mb-1">Estado</label>
               <input
-                placeholder="United Kingdom"
+                placeholder="Ceará"
                 class="input rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
               />
             </div>
 
             <div>
-              <label class="block text-sm text-gray-400 mb-1">City</label>
+              <label class="block text-sm text-gray-400 mb-1">Cidade</label>
               <input
                 class="input rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
-                placeholder="London"
+                placeholder="Fortaleza"
               />
             </div>
           </div>
 
           <div class="flex flex-col w-2/5">
-            <label class="block text-sm text-gray-400 mb-1">Address</label>
+            <label class="block text-sm text-gray-400 mb-1">Endereço</label>
             <input
               class="input rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
-              placeholder="Street and number"
+              placeholder="Logradouro"
             />
           </div>
 
           <div>
-            <label class="block text-sm text-gray-400 mb-1">Postal code</label>
+            <label class="block text-sm text-gray-400 mb-1">CEP</label>
             <input
               class="input rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
-              placeholder="SW1A 1AA"
+              placeholder="0000-000"
             />
           </div>
         </div>
 
         <!-- Preferences form -->
-        <div v-if="activeTab === 'preferences'" class="space-y-6">
+        <div v-if="activeTab === 'preferências'" class="space-y-6">
           <div class="flex items-center justify-start gap-2">
-            <span class="text-white">Email notifications</span>
+            <span class="text-white">Notificações no email</span>
             <input type="checkbox" class="toggle" />
           </div>
 
           <div class="flex items-center justify-start gap-2">
-            <span class="text-white">SMS notifications</span>
+            <span class="text-white">Notificações SMS</span>
             <input type="checkbox" class="toggle" />
           </div>
 
           <div class="flex items-center">
-            <label class="label text-white">Odds format</label>
+            <label class="label text-white">Formato odds </label>
             <select class="input text-white bg-">
               <option>Decimal</option>
-              <option>Fractional</option>
-              <option>American</option>
+              <option>Fracionado</option>
             </select>
           </div>
         </div>
 
         <!-- Account form -->
-        <div v-if="activeTab === 'account'" class="space-y-6">
+        <div v-if="activeTab === 'conta'" class="space-y-6">
           <div>
             <label class="block text-sm text-gray-400 mb-1"
-              >Change password</label
+              >Redefinir senha</label
             >
             <input
               type="password"
               class="input rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
-              placeholder="New password"
+              placeholder="Senha atual"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm text-gray-400 mb-1"> Nova senha </label>
+            <input
+              type="password"
+              class="input rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
+              placeholder="Nova senha"
             />
           </div>
 
           <div>
             <label class="block text-sm text-gray-400 mb-1">
-              Confirm password
+              Confirmar nova senha
             </label>
             <input
               type="password"
               class="input rounded-lg bg-df-bg border border-gray-700 px-4 py-2 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
-              placeholder="Confirm password"
+              placeholder="Confirmar nova senha"
             />
           </div>
 
           <button
             class="text-white hover:bg-red-500 rounded-lg border-red-500 bg-red-700 h-10 px-2"
           >
-            Deactivate account
+            Apagar conta
           </button>
         </div>
 

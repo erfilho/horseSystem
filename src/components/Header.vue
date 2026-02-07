@@ -12,12 +12,9 @@ import {
   AnFilledPlayCircle,
   AnOutlinedSearch,
   BsClockHistory,
-  BsCloudDrizzleFill,
-  LuDices,
 } from "@kalimahapps/vue-icons";
 
 import { Button } from "@/components/ui/button";
-import router from "@/routes/router";
 import { useAuthStore } from "@/stores/auth.store";
 
 const auth = useAuthStore();
@@ -26,10 +23,9 @@ const isLogged = computed(() => auth.isAuthenticated);
 
 const handleLogout = () => {
   auth.logout();
-  router.push("/");
 };
 
-const lang = ref("ENG");
+const lang = ref("POR");
 
 const languages = [
   {
@@ -45,13 +41,13 @@ const languages = [
 ];
 
 const selectedLang = computed(() =>
-  languages.find((l) => l.value === lang.value)
+  languages.find((l) => l.value === lang.value),
 );
 </script>
 
 <template>
   <header
-    class="h-full w-full shrink-0 border-b border-zinc-800 grid grid-cols-[220px_minmax(0,1fr)_300px] gap-4 px-10 col-span-3"
+    class="sticky top-0 z-50 h-full w-full grid grid-cols-[240px_1fr_340px] col-span-3 bg-bg-surface border-b border-white/5"
   >
     <!-- LOGO -->
     <div class="flex items-center justify-center">
@@ -67,33 +63,19 @@ const selectedLang = computed(() =>
         class="h-9 px-4 text-sm font-semibold bg-transparent border border-transparent text-zinc-200 hover:bg-white/5 flex items-center gap-2"
       >
         <AnFilledPlayCircle class="w-5 h-5" />
-        Live now
+        Ao vivo
       </Button>
       <Button
         variant="secondary"
         class="h-9 px-4 text-sm font-semibold bg-transparent border border-transparent text-zinc-200 hover:bg-white/5 flex items-center gap-2"
       >
         <BsClockHistory class="w-5 h-5" />
-        Quick bets
-      </Button>
-      <Button
-        variant="secondary"
-        class="h-9 px-4 text-sm font-semibold bg-transparent border border-transparent text-zinc-200 hover:bg-white/5 flex items-center gap-2"
-      >
-        <LuDices class="w-5 h-5" />
-        Live casino
-      </Button>
-      <Button
-        variant="secondary"
-        class="h-9 px-4 text-sm font-semibold bg-transparent border border-transparent text-zinc-200 hover:bg-white/5 flex items-center gap-2"
-      >
-        <BsCloudDrizzleFill class="w-5 h-5" />
-        Virtuals
+        Aposta rápida
       </Button>
     </nav>
 
     <!-- LADO DIREITO: LANG + LOGIN -->
-    <div class="flex items-center justify-end gap-2">
+    <div class="flex items-center justify-start gap-2">
       <!-- LANG SELECT -->
       <Select v-model="lang">
         <SelectTrigger
@@ -132,8 +114,28 @@ const selectedLang = computed(() =>
         </SelectContent>
       </Select>
 
+      <!-- AUTENTICADO -->
+      <template v-if="isLogged">
+        <RouterLink to="/user/profile">
+          <Button
+            variant="secondary"
+            class="h-9 px-4 text-sm font-semibold bg-zinc-800 text-white hover:bg-zinc-700"
+          >
+            Perfil
+          </Button>
+        </RouterLink>
+
+        <Button
+          variant="secondary"
+          class="h-9 px-4 text-sm font-semibold bg-sky-500 text-white hover:bg-sky-400"
+          @click="handleLogout"
+        >
+          Logout
+        </Button>
+      </template>
+
       <!-- NÃO AUTENTICADO -->
-      <template v-if="!isLogged">
+      <template v-else>
         <RouterLink to="/login">
           <Button
             variant="secondary"
@@ -148,29 +150,9 @@ const selectedLang = computed(() =>
             variant="secondary"
             class="h-9 px-4 text-sm font-semibold bg-sky-500 text-white hover:bg-sky-400"
           >
-            Join now
+            Cadastro
           </Button>
         </RouterLink>
-      </template>
-
-      <!-- AUTENTICADO -->
-      <template v-else>
-        <RouterLink to="/user/profile">
-          <Button
-            variant="secondary"
-            class="h-9 px-4 text-sm font-semibold bg-zinc-800 text-white hover:bg-zinc-700"
-          >
-            Profile
-          </Button>
-        </RouterLink>
-
-        <Button
-          variant="secondary"
-          class="h-9 px-4 text-sm font-semibold bg-sky-500 text-white hover:bg-sky-400"
-          @click="handleLogout"
-        >
-          Logout
-        </Button>
       </template>
 
       <!-- SEARCH -->

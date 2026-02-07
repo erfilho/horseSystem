@@ -12,14 +12,14 @@ defineProps<{
 </script>
 
 <template>
-  <RouterLink :to="url" class="w-11/12"
+  <RouterLink :to="url" class="w-full"
     ><Button
       variant="secondary"
       class="flex items-center justify-start gap-2 w-full hover:bg-active-link hover:cursor-pointer rounded-lg"
       :class="
         isActive
           ? 'bg-active-link hover:bg-zinc-700 hover:cursor-pointer text-white'
-          : 'bg-df-bg'
+          : ''
       "
     >
       <component
