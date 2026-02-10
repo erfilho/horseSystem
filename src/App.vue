@@ -4,7 +4,7 @@ import Header from "./components/Header.vue";
 </script>
 
 <template>
-  <div class="h-screen w-full bg-bg-main overflow-hidden">
+  <div class="h-screen w-full bg-bg-main overflow-y-auto no-scrollbar">
     <header class="h-15 w-full flex items-center">
       <Header />
     </header>

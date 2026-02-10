@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Sidebar from "@/components/Sidebar.vue";
+import Button from "@/components/ui/button/Button.vue";
 import WalletTransaction from "@/components/WalletTransaction.vue";
 import { useWalletStore, type PaymentMethod } from "@/stores/wallet.store";
 import { BsBank } from "@kalimahapps/vue-icons";
@@ -28,16 +30,20 @@ const handleDebit = () => {
 
 <template>
   <div
-    class="min-h-screen w-full bg-linear-to-br from-[#08162f] via-[#0b1f3f] to-[#020617] text-white col-span-3"
+    class="min-h-screen w-full text-white grid grid-cols-[240px_1fr] bg-bg-main"
   >
+    <aside class="h-full overflow-y-auto">
+      <Sidebar />
+    </aside>
+
     <!-- CONTENT -->
-    <div class="max-w-7xl mx-auto px-10 py-10 space-y-10">
+    <div class="px-6 py-4 text-white space-y-6 w-4/5 mx-auto">
       <!-- TABS -->
       <div class="flex gap-6 border-b border-white/10">
         <button
           class="pb-3 text-blue-400 border-b-2 border-blue-400 font-semibold"
         >
-          Balance Overview
+          Resumo
         </button>
       </div>
 
@@ -45,92 +51,87 @@ const handleDebit = () => {
       <div class="grid grid-cols-12 gap-6">
         <!-- BALANCE OVERVIEW -->
         <div
-          class="col-span-4 bg-[#0b1220]/90 backdrop-blur rounded-2xl p-6 border border-white/10"
+          class="col-span-4 bg-bg-surface rounded-2xl p-6 border border-white/10"
         >
-          <h2 class="text-sm text-zinc-400 mb-4">Balance Overview</h2>
+          <h2 class="text-zinc-400 mb-4">Resumo</h2>
 
-          <div class="bg-black/30 rounded-xl p-6">
-            <p class="text-xs text-zinc-400">Wallet Balance</p>
+          <div class="bg-bg-main rounded-xl p-6">
+            <p class="text-xs text-zinc-400">Saldo</p>
             <p class="text-4xl font-bold mt-2">
-              € {{ wallet.balance.toFixed(2) }}
+              R$ {{ wallet.balance.toFixed(2) }}
             </p>
           </div>
 
-          <div class="mt-6 space-y-3 text-sm">
+          <div class="mt-6 space-y-3">
             <div class="flex justify-between text-zinc-300">
-              <span>Bonuses</span>
-              <span class="text-blue-400">€ 0.00</span>
+              <span>Bônus</span>
+              <span class="text-blue-400">R$ 0.00</span>
             </div>
             <div class="flex justify-between">
-              <span>Cash</span>
-              <span>€ {{ wallet.balance.toFixed(2) }}</span>
+              <span>Dinheiro</span>
+              <span>R$ {{ wallet.balance.toFixed(2) }}</span>
             </div>
           </div>
-
-          <button
-            class="w-full mt-6 bg-blue-600 hover:bg-blue-500 transition rounded-lg py-3 font-semibold"
-          >
-            Withdraw
-          </button>
         </div>
 
         <!-- DEPOSIT -->
         <div
-          class="col-span-4 bg-[#0b1220]/90 backdrop-blur rounded-2xl p-6 border border-white/10"
+          class="col-span-4 bg-bg-surface rounded-2xl p-6 border border-white/10 flex flex-col h-full justify-start"
         >
-          <h2 class="text-sm text-zinc-400 mb-4">Deposit Funds</h2>
+          <h2 class="text-zinc-400 mb-4">Depósito</h2>
 
           <!-- seleção de método -->
           <div class="flex gap-3 mb-4">
-            <button
-              type="button"
+            <Button
+              variant="secondary"
               class="px-4 py-2 rounded-lg text-xs"
               :class="method === 'visa' ? 'bg-blue-600' : 'bg-black/40'"
               @click="method = 'visa'"
             >
               VISA
-            </button>
+            </Button>
 
-            <button
-              type="button"
+            <Button
+              variant="secondary"
               class="px-4 py-2 rounded-lg text-xs"
               :class="method === 'pix' ? 'bg-blue-600' : 'bg-black/40'"
               @click="method = 'pix'"
             >
               PIX
-            </button>
+            </Button>
           </div>
 
           <input
             v-model.number="depositAmount"
             type="number"
-            placeholder="€ 0"
-            class="w-full bg-black/40 border border-white/10 rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="R$ 0,00"
+            class="w-full bg-bg-main border border-white/10 rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
-          <button
+          <Button
+            variant="secondary"
             @click="handleCredit"
-            class="w-full bg-blue-600 hover:bg-blue-500 transition rounded-lg py-3 font-semibold"
+            class="w-full bg-blue-600 hover:bg-blue-500 transition rounded-lg py-3 font-semibold justify-self-end-safe"
             :disabled="!depositAmount || !method"
           >
-            Deposit
-          </button>
+            Depositar valor
+          </Button>
         </div>
 
         <!-- WITHDRAW -->
         <div
-          class="col-span-4 bg-[#0b1220]/90 backdrop-blur rounded-2xl p-6 border border-white/10"
+          class="col-span-4 bg-bg-surface rounded-2xl p-6 border border-white/10"
         >
-          <h2 class="text-sm text-zinc-400 mb-4">Withdraw Funds</h2>
+          <h2 class="text-zinc-400 mb-4">Solicitar saque</h2>
 
           <div
-            class="bg-black/30 rounded-xl p-4 mb-4 flex flex-row items-center gap-3"
+            class="bg-bg-card rounded-xl p-4 mb-4 flex flex-row items-center gap-3"
           >
             <span> <BsBank /></span>
             <span
-              ><p class="text-xs text-zinc-400">Bank Transfer</p>
+              ><p class="text-xs text-zinc-400">Transferência TED</p>
               <p class="text-xs text-zinc-500">
-                Processing time: 1–2 business days
+                Tempo de processamento: 1 - 2 dias úteis
               </p></span
             >
           </div>
@@ -138,39 +139,39 @@ const handleDebit = () => {
           <input
             v-model.number="withdrawAmount"
             type="number"
-            placeholder="€ 0"
+            placeholder="R$ 0.00"
             class="w-full bg-black/40 border border-white/10 rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
-          <button
+          <Button
             @click="handleDebit"
-            class="w-full bg-indigo-600 hover:bg-indigo-500 transition rounded-lg py-3 font-semibold"
+            class="w-full bg-blue-600 hover:bg-blue-500 transition rounded-lg py-3 font-semibold"
           >
-            Withdraw
-          </button>
+            Sacar
+          </Button>
 
-          <p class="text-xs text-zinc-400 mt-3 text-right">
-            Max withdrawable: € {{ wallet.balance.toFixed(2) }}
+          <p class="text-sm text-zinc-400 mt-3 text-right">
+            Disponível para saque: R$ {{ wallet.balance.toFixed(2) }}
           </p>
         </div>
       </div>
 
       <!-- TRANSACTIONS -->
       <div
-        class="bg-[#0b1220]/90 backdrop-blur rounded-2xl p-6 border border-white/10"
+        class="bg-bg-surface backdrop-blur rounded-2xl p-6 border border-white/10"
       >
         <div class="flex justify-between items-center mb-4">
-          <h2 class="text-lg font-semibold">Transaction History</h2>
-          <span class="text-xs text-zinc-400">Last 7 entries</span>
+          <h2 class="text-lg font-semibold">Transações recentes</h2>
+          <span class="text-xs text-zinc-400">Últimas 7 movimentações</span>
         </div>
 
         <!-- TABLE HEADER -->
         <div class="grid grid-cols-6 px-4 py-2 text-xs text-zinc-400 uppercase">
-          <span>Type</span>
-          <span>Method</span>
-          <span>Transaction ID</span>
-          <span class="text-right">Amount</span>
-          <span class="text-right">Date</span>
+          <span>Tipo</span>
+          <span>Método</span>
+          <span>Id da transação</span>
+          <span class="text-right">Valor</span>
+          <span class="text-right">Data</span>
           <span class="text-right">Status</span>
         </div>
 

@@ -20,12 +20,12 @@ const auth = useAuthStore();
 const isLogged = computed(() => auth.isAuthenticated);
 
 const formattedStake = computed(() =>
-  new Intl.NumberFormat("pt-BR", { style: "currency", currency: "EUR" }).format(
+  new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
     betSlip.stake,
   ),
 );
 const formattedReturn = computed(() =>
-  new Intl.NumberFormat("pt-BR", { style: "currency", currency: "EUR" }).format(
+  new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
     betSlip.potentialReturn || 0,
   ),
 );
@@ -145,7 +145,7 @@ function setBetType(type: "single" | "multiple") {
             class="text-lg flex-1 first:bg-secondary-button border-secondary-button border text-zinc-100 hover:bg-zinc-700 rounded-lg flex items-center"
             @click="addValue(val)"
           >
-            € {{ val }}
+            R$ {{ val }}
           </Button>
         </div>
 

@@ -23,12 +23,14 @@ const isPositive = props.amount > 0;
         class="w-2 h-2 rounded-full"
         :class="isPositive ? 'bg-green-400' : 'bg-red-400'"
       />
-      <span class="capitalize">{{ type }}</span>
+      <span class="capitalize">{{
+        type == "deposit" ? "depósito" : "saque"
+      }}</span>
     </div>
 
     <!-- METHOD -->
     <div class="uppercase text-zinc-400">
-      {{ method }}
+      {{ method == "bank" ? "TED" : method == "pix" ? "pix" : "VISA" }}
     </div>
 
     <!-- TRANSACTION ID -->
@@ -59,7 +61,7 @@ const isPositive = props.amount > 0;
             : 'bg-yellow-500/20 text-yellow-400'
         "
       >
-        {{ status }}
+        {{ status == "pending" ? "pendente" : "finalizado" }}
       </span>
     </div>
   </div>

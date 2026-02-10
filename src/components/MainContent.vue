@@ -34,7 +34,54 @@ const races = [
     formCode: "nyajw333C098",
     lastOdds: "15/8 > 7/4 > 15/8",
   },
-  // ... outros races iguais ao original
+  {
+    shirtNumber: 2,
+    horse: "Silver Thunder",
+    jockey: "Maxime Guyon",
+    trainer: "J. Reynier",
+    odds: 4.9,
+    color: "text-blue-600",
+    active: true,
+    horseAge: 5,
+    formCode: "a2c1w49bC110",
+    lastOdds: "5/1 > 7/2 > 3/1",
+  },
+  {
+    shirtNumber: 3,
+    horse: "Dark Horizon",
+    jockey: "Christophe Soumillon",
+    trainer: "F. Head",
+    odds: 6.2,
+    color: "text-gray-700",
+    active: true,
+    horseAge: 7,
+    formCode: "c341a2dC087",
+    lastOdds: "9/2 > 4/1 > 7/2",
+  },
+  {
+    shirtNumber: 4,
+    horse: "Golden Flash",
+    jockey: "Mickaël Barzalona",
+    trainer: "A. Fabre",
+    odds: 3.8,
+    color: "text-yellow-600",
+    active: true,
+    horseAge: 4,
+    formCode: "1w12b3C122",
+    lastOdds: "3/1 > 5/2 > 9/4",
+  },
+  {
+    shirtNumber: 5,
+    horse: "Iron Spirit",
+    jockey: "Théo Bachelot",
+    trainer: "H. Pantall",
+    odds: 9.1,
+    color: "text-green-600",
+    active: false,
+    horseAge: 8,
+    formCode: "b59a43wC064",
+    lastOdds: "10/1 > 8/1 > 15/2",
+  },
 ];
 
 function addToBetSlip(race: any) {
@@ -52,7 +99,9 @@ function addToBetSlip(race: any) {
 </script>
 
 <template>
-  <main class="flex flex-col gap-6 px-3 py-4 bg-bg-main text-white">
+  <main
+    class="flex flex-col gap-6 px-3 py-4 bg-bg-main text-white overflow-auto"
+  >
     <!-- BANNER -->
     <section
       class="relative h-72 py-1 rounded-xl overflow-hidden"

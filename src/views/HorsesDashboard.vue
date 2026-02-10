@@ -77,30 +77,30 @@ function editHorse(horse: Horse) {
         <div
           class="col-span-1 bg-bg-surface rounded-xl p-5 border border-gray-700 space-y-4"
         >
-          <h2 class="font-semibold">Add New Horse</h2>
+          <h2 class="font-semibold">Adicionar cavalo</h2>
 
           <input
             v-model="form.name"
-            placeholder="Horse Name"
+            placeholder="Nome do cavalo"
             class="w-full rounded-lg bg-df-bg border border-gray-700 px-4 py-2"
           />
 
           <input
             v-model.number="form.age"
             type="number"
-            placeholder="Age"
+            placeholder="Idade"
             class="w-full rounded-lg bg-df-bg border border-gray-700 px-4 py-2"
           />
 
           <input
             v-model="form.breed"
-            placeholder="Breed"
+            placeholder="Raça"
             class="w-full rounded-lg bg-df-bg border border-gray-700 px-4 py-2"
           />
 
           <input
             v-model="form.trainer_name"
-            placeholder="Trainer"
+            placeholder="Treinador"
             class="w-full rounded-lg bg-df-bg border border-gray-700 px-4 py-2"
           />
 
@@ -108,7 +108,7 @@ function editHorse(horse: Horse) {
             @click="saveHorse"
             class="w-full bg-blue-600 hover:bg-blue-500 transition py-2 rounded-lg font-semibold"
           >
-            {{ editingHorseId ? "Update Horse" : "Register Horse" }}
+            {{ editingHorseId ? "Atualizar" : "Salvar cavalo" }}
           </button>
         </div>
 
@@ -117,11 +117,11 @@ function editHorse(horse: Horse) {
           class="col-span-2 bg-bg-surface rounded-xl p-5 border border-gray-700"
         >
           <div class="flex items-center justify-between mb-4">
-            <h2 class="font-semibold">Registered Horses</h2>
+            <h2 class="font-semibold">Cavalos cadastrados</h2>
 
             <input
               type="text"
-              placeholder="Search horse..."
+              placeholder="Procurar cavalo..."
               class="bg-df-bg border border-gray-700 rounded-lg px-3 py-2 text-sm"
             />
           </div>
@@ -130,11 +130,11 @@ function editHorse(horse: Horse) {
             <thead class="text-gray-400 border-b border-gray-700">
               <tr>
                 <th class="w-16">#</th>
-                <th class="w-32 text-left">Horse Name</th>
-                <th class="w-20 text-center">Age</th>
-                <th class="w-32 text-left">Breed</th>
-                <th class="w-40 text-left">Trainer</th>
-                <th class="w-32 text-right">Actions</th>
+                <th class="w-32 text-left">Nome do cavalo</th>
+                <th class="w-20 text-center">Idade</th>
+                <th class="w-32 text-left">Raça</th>
+                <th class="w-40 text-left">Treinador</th>
+                <th class="w-32 text-right">Ações</th>
               </tr>
             </thead>
 
@@ -154,7 +154,7 @@ function editHorse(horse: Horse) {
                   <div class="flex flex-row justify-end gap-2 w-full py-1">
                     <button
                       @click="editHorse(horse)"
-                      class="p-1 rounded-lg bg-gray-700 hover:bg-gray-600"
+                      class="py-1 px-2 rounded-lg bg-gray-700 hover:bg-gray-600"
                       title="Edit horse"
                     >
                       ✎
@@ -171,7 +171,7 @@ function editHorse(horse: Horse) {
 
               <tr v-if="horsesStore.horses.length === 0">
                 <td colspan="6" class="text-center py-6 text-gray-400">
-                  No horses registered
+                  Sem cavalos cadastrados
                 </td>
               </tr>
             </tbody>
@@ -182,14 +182,14 @@ function editHorse(horse: Horse) {
             class="flex justify-between items-center text-sm text-gray-500 pt-4"
           >
             <span>
-              Showing 1 to {{ horsesStore.horses.length }} of
-              {{ horsesStore.horses.length }} entries
+              Mostrando {{ horsesStore.horses.length }} de
+              {{ horsesStore.horses.length }} cavalos cadastrados
             </span>
 
             <div class="flex gap-2">
-              <button class="px-3 py-1 bg-gray-700 rounded">Prev</button>
+              <button class="px-3 py-1 bg-gray-700 rounded">Ant.</button>
               <button class="px-3 py-1 bg-gray-700 rounded">1</button>
-              <button class="px-3 py-1 bg-gray-700 rounded">Next</button>
+              <button class="px-3 py-1 bg-gray-700 rounded">Próx.</button>
             </div>
           </div>
         </div>
